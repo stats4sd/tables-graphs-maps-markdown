@@ -1,0 +1,52 @@
+# Considering the Message {#CTM}
+
+Two of the above principles go beyond the specifics of what you put into your data visualisations: effectiveness and being informative. Consideration of these two principles does not start when you plot your variables. They are principles which should guide your entire research process, including presentation.
+
+This guide will make regular reference to considering what is appropriate for your message, your results and your purpose. For your data visualisations to be effective and informative, you need to think hard about the message you want them to convey.  This will often come back to an original research question. These research questions should always be guiding you in the creation of data visualisations. Effective data presentation needs to have something to say, and what it says should be relevant. 
+
+Consider this as a process:
+
+1.	We start with our research questions that we want to help answer through our research. 
+
+2.	We can break these up and consider how we will answer them. What are going to be the key points we will need to investigate to answer these questions?
+
+For example, say we want to research the prevalence of a disease across areas within a country. We can decide that we are going to need to make points about the overall prevalence, the geographical variation, the explanations, compounding variables. We could look at these as the building blocks of our messages. Our messages are what we want people to remember and they will all stack up to help answer our bigger questions. 
+
+3.	After this, we conduct our analysis and pick out our key findings. These key findings will similarly be informed by our existing research questions and pre-conceived ideas about what our messages will be. However, they should always be flexible; an unexpected result should not be ignored.
+
+4.	We now need to update our messages based on what we have observed. Our messages should always strive to be important, relevant, and interesting. Also consider novelty; repeating a message we have heard many times over and over will not result in a very interesting data visualisation.
+
+5.	These updated messages and key findings will inform the creation of our presentable data visualisations. These visualisations along with our messages help to answer our initial research questions.
+
+Therefore, we think about being effective and informative throughout the research process. If your messages and questions are not effective or informative then you cannot expect your visualisations to be. 
+
+Bringing effectiveness and informativeness into your data visualisations requires careful consideration of the messages you have drafted. This leads to questions you will need to ask of yourself, including:
+
+*	What variables should I include?
+
+You should not be including more variables than are necessary. Think about the specifics of your intended message and only include the variables which are relevant and necessary for effectively showing this message. You should also avoid including variables which are uninformative. If adding in a variable does not add any explanatory value, then drop it from your visualisation.
+
+*	Which variables should I split by?
+
+Disaggregating your findings by certain groups is a common practice. What variables you use to do this splitting should largely be informed by your research questions and messages. 
+
+Consider the example of geographical variation of disease prevalence. Explicitly, we know we will need to look at how our results vary by geography, but we may also want to consider variables which could help to explain the geographical variation. So, we could split by levels of economic deprivation or rurality. It always comes back to keeping relevant and important. 
+
+*	Which graph/table/map should I use?
+
+This involves thinking carefully about the type of message you want to show. 
+Does your message mostly concern changes over time? If so, then a table probably is not suitable unless it is quite a short time frame with few points. 
+
+A few graphical options would be suitable including line graphs, column charts, slope charts etc. From here, the choice would now be dependent on the types of variables you want to show. Concerned with totals? Then consider column charts. Concerned with averages/rates? Consider a line chart.
+
+Deciding on the right type of graph is a process, starting from your overall message and working down:
+
+1.	What is the purpose of your message? (Change over time? Distribution? Spatial? Correlation? Etc.) 
+
+2.	What variables are you plotting and how many? (Categorical? Continuous?)
+
+3.	How much data needs displaying? A lot or a little?
+
+4.	What are the measurement units? (Averages? Totals? Rates? Proportions?)
+
+Considering these questions should help you to narrow down what type of data visualisation is most appropriate. There are too many possible variations to consider here, but these points should help guide your thinking process.

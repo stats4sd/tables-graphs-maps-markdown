@@ -1,0 +1,17 @@
+fig:unnamed-chunk-2
+introduction
+gg
+effectiveness
+readability
+tidiness
+accessibility
+consistency
+informative
+CTM
+tables
+introduction-to-flextable
+general-guidance
+title-column-headers-and-labels
+graphs
+maps
+access
