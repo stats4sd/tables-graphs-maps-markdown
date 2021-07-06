@@ -30,3 +30,8 @@ knitr::write_bib(c(
 
 library(knitr)
 ```
+
+```{r}
+library(ggplot2)
+```
+
