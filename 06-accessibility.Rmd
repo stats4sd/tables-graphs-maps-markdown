@@ -36,7 +36,7 @@ MathsGrades <- MathsGrades%>%
   mutate(Ever_fail = ifelse(Failures>0, "None", "At least one"))
 ```
 
-```{r}
+```{r, fig.cap = "The colours set on this plot are far too similair"}
 ggplot(MathsGrades, aes(x = MotherEduc, fill = Ever_fail))+
   geom_bar(position = "fill", width = 0.8)+
   scale_fill_manual(values = c("#02A6AC", "#1385AC"))+
@@ -61,11 +61,11 @@ Previous advice already presented on the use of colour in graphs and maps (using
 
     +	Blue palettes are a safe default starting point as they are colour blind safe and are visible in grayscale, as shown in the picture below.
 
-```{r, out.width="100%", echo = FALSE}
+```{r, out.width="100%", echo = FALSE, fig.cap = "A demonstration of how a colour-blind person would see a colourful graph"}
 knitr::include_graphics("img/colour_blind_graphs.png")
 ```
 
-```{r, out.width="100%", echo = FALSE}
+```{r, out.width="100%", echo = FALSE, fig.cap = "Side by side comparison of colours converted to greyscale"}
 knitr::include_graphics("img/colour_blind_2.png")
 ```
 
@@ -73,7 +73,7 @@ knitr::include_graphics("img/colour_blind_2.png")
 
     +	Consider cultural context. Colours often have some inherent culturally defined associations. For instance, using colours people associate with familiar concepts can improve the quality and speed of information processing, such as using blue for water on a map.
     
-```{r, out.width="100%", echo = FALSE}
+```{r, out.width="100%", echo = FALSE, fig.cap = "Using colours logically"}
 knitr::include_graphics("img/cultural_context.png")
 ```    
 
@@ -83,13 +83,13 @@ knitr::include_graphics("img/cultural_context.png")
     
 *  **Hue** – Hues are colours. They do not have a natural order and therefore users cannot assign a logical order to them. Small changes in hue are easy to detect although colour blindness can affect how well people can detect these differences.  
 
-```{r, out.width="100%", echo = FALSE}
+```{r, out.width="100%", echo = FALSE, fig.cap = "Hue"}
 knitr::include_graphics("img/visegs/eghue.png")
 ```    
 
 *	**Saturation** – This is the intensity of a colour, ranging from grey/white (no saturation) to rich, vibrant, almost glowing colour. Saturation is perceived on a continuous scale, although it is difficult to detect small changes. High saturation can also cause issues for those with certain visual/light sensitivity problems.
 
-```{r, out.width="100%", echo = FALSE}
+```{r, out.width="100%", echo = FALSE, fig.cap = "Saturation"}
 knitr::include_graphics("img/visegs/egsat.png")
 ``` 
 
@@ -98,13 +98,13 @@ knitr::include_graphics("img/visegs/egsat.png")
     + It is easier to distinguish between bars even if luminance is the only difference.
     + Changes in luminance need to be larger if creating a line graph as the white space between the lines makes it harder to quickly compare.
 
-```{r, out.width="100%", echo = FALSE}
+```{r, out.width="100%", echo = FALSE, fig.cap = "Luminance"}
 knitr::include_graphics("img/visegs/eglum.png")
 ```     
     
 * Never use an image as a background. This looks messy and cluttered and can make it difficult to read the graph.
 
-```{r, echo = FALSE, message = FALSE, warning=FALSE}
+```{r, echo = FALSE, message = FALSE, warning=FALSE, fig.cap = "Using a background image in a plot"}
 library(ggpubr)
 library(ggimage)
 library(magick)
@@ -141,7 +141,7 @@ ggplot(MathsGrades, aes(x = MotherEduc, fill = Ever_fail))+
     + Alternate colours – consider alternating dark and light for categorical data to improve clarity and distinction.
     + Use borders – adding thin borders to the edges of bars can enhance clarity/separation.
     
-```{r, out.width="100%", echo = FALSE}
+```{r, out.width="100%", echo = FALSE, fig.cap="Use of alternating colours and borders"}
 knitr::include_graphics("img/visegs/egcolsgoodpractice.png")
 ``` 
     
@@ -184,3 +184,59 @@ ggplot(MathsGrades, aes(x = MotherEduc, fill = Ever_fail))+
 * Use a white background.    
 
     + Most palettes are designed to appear on top of a white background. It provides a helpful reference for the colour scale being used.
+    
+## Using colour in ggplot2
+
+ggplot2 comes with a wide array of capabilities to control the colour of various aspects of a graph. There are two main ways to add colour to a plot, either by allowing plotted objects (bar, points etc.) to vary according to a specified variable in your data or by simply setting something as a static colour.
+
+To use a variable to define your colours, you include either `fill = variable` or `colour = variable` in the aesthetic mapping of your plot. `fill` refers to the space within objects/shapes such as the whitespace within a boxplot or a bar, while `colour` tends to refer to borders or points. 
+
+In the example below, we have assigned the `fill` of the column to vary according to the HHTYPE variable. Thereby turning the normal bar graph into a stacked bar graph.
+
+```{r, echo = FALSE}
+BeanSurvey <- readRDS("data/bean_survey.RDS")
+```
+
+```{r, fig.cap = "Using fill (barchart)"}
+ggplot(BeanSurvey, aes(x = VILLAGE, y = ADULTS, fill = HHTYPE))+
+  geom_col()
+```
+
+As we can see below the same idea does not really work if we tried the colour argument instead.
+
+```{r, fig.cap = "Using colour (barchart)"}
+ggplot(BeanSurvey, aes(x = VILLAGE, y = ADULTS, colour = HHTYPE))+
+  geom_col()
+```
+
+Colour is better suited to graphs such as a scatterplot. In this case the plot has been jittered to avoid overplotting.
+
+```{r, fig.cap = "Using colour (scatter/jitterplot)"}
+ggplot(MathsGrades, aes(x = Mock, y = Final, colour = Sex))+
+  geom_jitter()
+```
+
+Again, this doesn't work when we try the reverse with fill.
+
+```{r, fig.cap = "Using fill (scatter/jitterplot)"}
+ggplot(MathsGrades, aes(x = Mock, y = Final, fill = Sex))+
+  geom_jitter()
+```
+
+If we don't wish to allow colour to vary according to a variable in our data but rather set all objects to the same colour (other than the default grey/black), then we set the colour inside of the specific geom instead and not within a call to `aes()`. We can assign the colour using a hex code e.g. `fill = "#CD0000"` for a deep shade of red or by using the name of a pre-defined ggplot2 colour such as `colour = "dodgerblue4"`. You can find a list of all ggplot2 colours and additional information on colour scales [here](http://sape.inf.usi.ch/quick-reference/ggplot2/colour). Another useful site for finding good colours, especially their appropriate hex codes can be found [here](https://alloyui.com/examples/color-picker/hsv.html)
+
+```{r, fig.cap="Setting fill with hex code"}
+ggplot(BeanSurvey, aes(x = VILLAGE, y = ADULTS))+
+  geom_col(fill = "#CD0000")
+```
+
+```{r, fig.cap = "Setting colour with named colour"}
+ggplot(MathsGrades, aes(x = Mock, y = Final))+
+  geom_jitter(colour = "dodgerblue4")
+```
+
+
+### Changing the colour/fill scale
+
+### Setting colours manually
+

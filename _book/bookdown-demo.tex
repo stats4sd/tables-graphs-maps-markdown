@@ -1001,7 +1001,11 @@ Colour is one of the most useful tools for supplying extra information to maps a
 \end{Highlighting}
 \end{Shaded}
 
+\begin{figure}
+\centering
 \includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-9-1.pdf}
+\caption{\label{fig:unnamed-chunk-9}The colours set on this plot are far too similair}
+\end{figure}
 
 Previous advice already presented on the use of colour in graphs and maps (using it to highlight, use it sparingly etc.) are still relevant and contribute to ensuring accessibility. The advice presented here tends to focus on the choice of colours themselves.
 
@@ -1021,9 +1025,13 @@ Previous advice already presented on the use of colour in graphs and maps (using
   \end{itemize}
 \end{itemize}
 
-\includegraphics[width=1\linewidth]{img/colour_blind_graphs}
+\begin{figure}
+\includegraphics[width=1\linewidth]{img/colour_blind_graphs} \caption{A demonstration of how a colour-blind person would see a colourful graph}\label{fig:unnamed-chunk-10}
+\end{figure}
 
-\includegraphics[width=1\linewidth]{img/colour_blind_2}
+\begin{figure}
+\includegraphics[width=1\linewidth]{img/colour_blind_2} \caption{Side by side comparison of colours converted to greyscale}\label{fig:unnamed-chunk-11}
+\end{figure}
 
 \begin{itemize}
 \item
@@ -1036,7 +1044,9 @@ Previous advice already presented on the use of colour in graphs and maps (using
   \end{itemize}
 \end{itemize}
 
-\includegraphics[width=1\linewidth]{img/cultural_context}
+\begin{figure}
+\includegraphics[width=1\linewidth]{img/cultural_context} \caption{Using colours logically}\label{fig:unnamed-chunk-12}
+\end{figure}
 
 \begin{itemize}
 \item
@@ -1051,7 +1061,9 @@ Previous advice already presented on the use of colour in graphs and maps (using
   \textbf{Hue} -- Hues are colours. They do not have a natural order and therefore users cannot assign a logical order to them. Small changes in hue are easy to detect although colour blindness can affect how well people can detect these differences.
 \end{itemize}
 
-\includegraphics[width=1\linewidth]{img/visegs/eghue}
+\begin{figure}
+\includegraphics[width=1\linewidth]{img/visegs/eghue} \caption{Hue}\label{fig:unnamed-chunk-13}
+\end{figure}
 
 \begin{itemize}
 \tightlist
@@ -1059,7 +1071,9 @@ Previous advice already presented on the use of colour in graphs and maps (using
   \textbf{Saturation} -- This is the intensity of a colour, ranging from grey/white (no saturation) to rich, vibrant, almost glowing colour. Saturation is perceived on a continuous scale, although it is difficult to detect small changes. High saturation can also cause issues for those with certain visual/light sensitivity problems.
 \end{itemize}
 
-\includegraphics[width=1\linewidth]{img/visegs/egsat}
+\begin{figure}
+\includegraphics[width=1\linewidth]{img/visegs/egsat} \caption{Saturation}\label{fig:unnamed-chunk-14}
+\end{figure}
 
 \begin{itemize}
 \tightlist
@@ -1077,7 +1091,9 @@ Previous advice already presented on the use of colour in graphs and maps (using
   \end{itemize}
 \end{itemize}
 
-\includegraphics[width=1\linewidth]{img/visegs/eglum}
+\begin{figure}
+\includegraphics[width=1\linewidth]{img/visegs/eglum} \caption{Luminance}\label{fig:unnamed-chunk-15}
+\end{figure}
 
 \begin{itemize}
 \tightlist
@@ -1085,35 +1101,11 @@ Previous advice already presented on the use of colour in graphs and maps (using
   Never use an image as a background. This looks messy and cluttered and can make it difficult to read the graph.
 \end{itemize}
 
-\begin{verbatim}
-## 
-## Attaching package: 'ggpubr'
-\end{verbatim}
-
-\begin{verbatim}
-## The following objects are masked from 'package:flextable':
-## 
-##     border, font, rotate
-\end{verbatim}
-
-\begin{verbatim}
-## 
-## Attaching package: 'ggimage'
-\end{verbatim}
-
-\begin{verbatim}
-## The following object is masked from 'package:ggpubr':
-## 
-##     theme_transparent
-\end{verbatim}
-
-\begin{verbatim}
-## Linking to ImageMagick 6.9.11.34
-## Enabled features: cairo, freetype, fftw, ghostscript, lcms, pango, rsvg, webp
-## Disabled features: fontconfig, x11
-\end{verbatim}
-
+\begin{figure}
+\centering
 \includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-16-1.pdf}
+\caption{\label{fig:unnamed-chunk-16}Using a background image in a plot}
+\end{figure}
 
 \begin{itemize}
 \item
@@ -1128,7 +1120,9 @@ Previous advice already presented on the use of colour in graphs and maps (using
   \end{itemize}
 \end{itemize}
 
-\includegraphics[width=1\linewidth]{img/visegs/egcolsgoodpractice}
+\begin{figure}
+\includegraphics[width=1\linewidth]{img/visegs/egcolsgoodpractice} \caption{Use of alternating colours and borders}\label{fig:unnamed-chunk-17}
+\end{figure}
 
 \begin{itemize}
 \tightlist
@@ -1187,6 +1181,126 @@ Previous advice already presented on the use of colour in graphs and maps (using
 \includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-19-1.pdf}
 \caption{\label{fig:unnamed-chunk-19}Low saturation makes the graph more pleasant to look at}
 \end{figure}
+
+\begin{itemize}
+\item
+  Use colour logically and consistently. If using sequences of colours, ensure that they progress in a logical manner that the user would expect, such as increasing luminance like in the map on page 50.
+
+  \begin{itemize}
+  \tightlist
+  \item
+    If creating multiple graphs, use the same colour to mean the same thing. Changing what they mean can confuse the user.
+  \end{itemize}
+\item
+  Use a white background.
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Most palettes are designed to appear on top of a white background. It provides a helpful reference for the colour scale being used.
+  \end{itemize}
+\end{itemize}
+
+\hypertarget{using-colour-in-ggplot2}{%
+\section{Using colour in ggplot2}\label{using-colour-in-ggplot2}}
+
+ggplot2 comes with a wide array of capabilities to control the colour of various aspects of a graph. There are two main ways to add colour to a plot, either by allowing plotted objects (bar, points etc.) to vary according to a specified variable in your data or by simply setting something as a static colour.
+
+To use a variable to define your colours, you include either \texttt{fill\ =\ variable} or \texttt{colour\ =\ variable} in the aesthetic mapping of your plot. \texttt{fill} refers to the space within objects/shapes such as the whitespace within a boxplot or a bar, while \texttt{colour} tends to refer to borders or points.
+
+In the example below, we have assigned the \texttt{fill} of the column to vary according to the HHTYPE variable. Thereby turning the normal bar graph into a stacked bar graph.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(BeanSurvey, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ VILLAGE, }\DataTypeTok{y =}\NormalTok{ ADULTS, }\DataTypeTok{fill =}\NormalTok{ HHTYPE))}\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_col}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}
+\centering
+\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-21-1.pdf}
+\caption{\label{fig:unnamed-chunk-21}Using fill (barchart)}
+\end{figure}
+
+As we can see below the same idea does not really work if we tried the colour argument instead.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(BeanSurvey, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ VILLAGE, }\DataTypeTok{y =}\NormalTok{ ADULTS, }\DataTypeTok{colour =}\NormalTok{ HHTYPE))}\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_col}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}
+\centering
+\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-22-1.pdf}
+\caption{\label{fig:unnamed-chunk-22}Using colour (barchart)}
+\end{figure}
+
+Colour is better suited to graphs such as a scatterplot. In this case the plot has been jittered to avoid overplotting.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(MathsGrades, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ Mock, }\DataTypeTok{y =}\NormalTok{ Final, }\DataTypeTok{colour =}\NormalTok{ Sex))}\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_jitter}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}
+\centering
+\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-23-1.pdf}
+\caption{\label{fig:unnamed-chunk-23}Using colour (scatter/jitterplot)}
+\end{figure}
+
+Again, this doesn't work when we try the reverse with fill.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(MathsGrades, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ Mock, }\DataTypeTok{y =}\NormalTok{ Final, }\DataTypeTok{fill =}\NormalTok{ Sex))}\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_jitter}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}
+\centering
+\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-24-1.pdf}
+\caption{\label{fig:unnamed-chunk-24}Using fill (scatter/jitterplot)}
+\end{figure}
+
+If we don't wish to allow colour to vary according to a variable in our data but rather set all objects to the same colour (other than the default grey/black), then we set the colour inside of the specific geom instead and not within a call to \texttt{aes()}. We can assign the colour using a hex code e.g.~\texttt{fill\ =\ "\#CD0000"} for a deep shade of red or by using the name of a pre-defined ggplot2 colour such as \texttt{colour\ =\ "dodgerblue4"}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(BeanSurvey, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ VILLAGE, }\DataTypeTok{y =}\NormalTok{ ADULTS))}\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_col}\NormalTok{(}\DataTypeTok{fill =} \StringTok{"#CD0000"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}
+\centering
+\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-25-1.pdf}
+\caption{\label{fig:unnamed-chunk-25}Setting fill with hex code}
+\end{figure}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(MathsGrades, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ Mock, }\DataTypeTok{y =}\NormalTok{ Final))}\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_jitter}\NormalTok{(}\DataTypeTok{colour =} \StringTok{"dodgerblue4"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}
+\centering
+\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-26-1.pdf}
+\caption{\label{fig:unnamed-chunk-26}Setting colour with named colour}
+\end{figure}
+
+\hypertarget{changing-the-colourfill-scale}{%
+\subsection{Changing the colour/fill scale}\label{changing-the-colourfill-scale}}
+
+\hypertarget{setting-colours-manually}{%
+\subsection{Setting colours manually}\label{setting-colours-manually}}
 
   \bibliography{book.bib,packages.bib}
 

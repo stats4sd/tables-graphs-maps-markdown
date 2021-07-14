@@ -53,6 +53,7 @@
 <script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<link href="libs/tabwid-1.0.0/tabwid.css" rel="stylesheet" />
 
 
 <style type="text/css">
@@ -140,7 +141,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
 <li class="chapter" data-level="2" data-path="gg.html"><a href="gg.html"><i class="fa fa-check"></i><b>2</b> General Guidance</a><ul>
 <li class="chapter" data-level="2.1" data-path="gg.html"><a href="gg.html#effectiveness"><i class="fa fa-check"></i><b>2.1</b> Effectiveness</a></li>
-<li class="chapter" data-level="2.2" data-path="gg.html"><a href="gg.html#informative"><i class="fa fa-check"></i><b>2.2</b> Informative</a></li>
+<li class="chapter" data-level="2.2" data-path="gg.html"><a href="gg.html#readability"><i class="fa fa-check"></i><b>2.2</b> Readability</a></li>
+<li class="chapter" data-level="2.3" data-path="gg.html"><a href="gg.html#tidiness"><i class="fa fa-check"></i><b>2.3</b> Tidiness</a></li>
+<li class="chapter" data-level="2.4" data-path="gg.html"><a href="gg.html#accessibility"><i class="fa fa-check"></i><b>2.4</b> Accessibility</a></li>
+<li class="chapter" data-level="2.5" data-path="gg.html"><a href="gg.html#consistency"><i class="fa fa-check"></i><b>2.5</b> Consistency</a></li>
+<li class="chapter" data-level="2.6" data-path="gg.html"><a href="gg.html#informative"><i class="fa fa-check"></i><b>2.6</b> Informative</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="CTM.html"><a href="CTM.html"><i class="fa fa-check"></i><b>3</b> Considering the Message</a></li>
 <li class="chapter" data-level="4" data-path="tables.html"><a href="tables.html"><i class="fa fa-check"></i><b>4</b> Tables</a><ul>
@@ -163,6 +168,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.1" data-path="access.html"><a href="access.html#tables-1"><i class="fa fa-check"></i><b>7.1</b> Tables</a></li>
 <li class="chapter" data-level="7.2" data-path="access.html"><a href="access.html#graphsmaps"><i class="fa fa-check"></i><b>7.2</b> Graphs/Maps</a></li>
 <li class="chapter" data-level="7.3" data-path="access.html"><a href="access.html#colour"><i class="fa fa-check"></i><b>7.3</b> Colour</a></li>
+<li class="chapter" data-level="7.4" data-path="access.html"><a href="access.html#using-colour-in-ggplot2"><i class="fa fa-check"></i><b>7.4</b> Using colour in ggplot2</a><ul>
+<li class="chapter" data-level="7.4.1" data-path="access.html"><a href="access.html#changing-the-colourfill-scale"><i class="fa fa-check"></i><b>7.4.1</b> Changing the colour/fill scale</a></li>
+<li class="chapter" data-level="7.4.2" data-path="access.html"><a href="access.html#setting-colours-manually"><i class="fa fa-check"></i><b>7.4.2</b> Setting colours manually</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="other-resources.html"><a href="other-resources.html"><i class="fa fa-check"></i>Other Resources</a></li>
 <li class="divider"></li>
@@ -213,17 +222,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="colour" class="section level2">
 <h2><span class="header-section-number">7.3</span> Colour</h2>
 <p>Colour is one of the most useful tools for supplying extra information to maps and graphs, and sometimes even tables. It can be used to clearly highlight patterns and relationships that could be missed by a monochromatic visualisation. Adding colour can make visualisations more effective, but this only works if viewers can tell which colour is which. For instance, the graph presented here uses colours which are far too similar.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="access.html#cb1-1"></a><span class="kw">ggplot</span>(MathsGrades, <span class="kw">aes</span>(<span class="dt">x =</span> MotherEduc, <span class="dt">fill =</span> Ever_fail))<span class="op">+</span></span>
-<span id="cb1-2"><a href="access.html#cb1-2"></a><span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">position =</span> <span class="st">&quot;fill&quot;</span>, <span class="dt">width =</span> <span class="fl">0.8</span>)<span class="op">+</span></span>
-<span id="cb1-3"><a href="access.html#cb1-3"></a><span class="st">  </span><span class="kw">scale_fill_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&quot;#02A6AC&quot;</span>, <span class="st">&quot;#1385AC&quot;</span>))<span class="op">+</span></span>
-<span id="cb1-4"><a href="access.html#cb1-4"></a><span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">labels =</span> percent)<span class="op">+</span><span class="st"> </span><span class="co"># requires the package &quot;scales&quot;</span></span>
-<span id="cb1-5"><a href="access.html#cb1-5"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Mother&#39;s Education Level&quot;</span>,</span>
-<span id="cb1-6"><a href="access.html#cb1-6"></a>       <span class="dt">y =</span> <span class="st">&quot;Count&quot;</span>,</span>
-<span id="cb1-7"><a href="access.html#cb1-7"></a>       <span class="dt">title =</span> <span class="st">&quot;Figure 3: Prevelance of Exam Failures amongst</span><span class="ch">\n</span><span class="st">Students by Level of Mother&#39;s Education&quot;</span>,</span>
-<span id="cb1-8"><a href="access.html#cb1-8"></a>       <span class="dt">fill =</span> <span class="st">&quot;Previous </span><span class="ch">\n</span><span class="st">Exam Failures?&quot;</span>,</span>
-<span id="cb1-9"><a href="access.html#cb1-9"></a>       <span class="dt">caption =</span> <span class="st">&quot;Source: Example Data Source (2020)&quot;</span>)<span class="op">+</span></span>
-<span id="cb1-10"><a href="access.html#cb1-10"></a><span class="st">  </span><span class="kw">theme_minimal</span>()</span></code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="access.html#cb7-1"></a><span class="kw">ggplot</span>(MathsGrades, <span class="kw">aes</span>(<span class="dt">x =</span> MotherEduc, <span class="dt">fill =</span> Ever_fail))<span class="op">+</span></span>
+<span id="cb7-2"><a href="access.html#cb7-2"></a><span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">position =</span> <span class="st">&quot;fill&quot;</span>, <span class="dt">width =</span> <span class="fl">0.8</span>)<span class="op">+</span></span>
+<span id="cb7-3"><a href="access.html#cb7-3"></a><span class="st">  </span><span class="kw">scale_fill_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&quot;#02A6AC&quot;</span>, <span class="st">&quot;#1385AC&quot;</span>))<span class="op">+</span></span>
+<span id="cb7-4"><a href="access.html#cb7-4"></a><span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">labels =</span> percent)<span class="op">+</span><span class="st"> </span><span class="co"># requires the package &quot;scales&quot;</span></span>
+<span id="cb7-5"><a href="access.html#cb7-5"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Mother&#39;s Education Level&quot;</span>,</span>
+<span id="cb7-6"><a href="access.html#cb7-6"></a>       <span class="dt">y =</span> <span class="st">&quot;Count&quot;</span>,</span>
+<span id="cb7-7"><a href="access.html#cb7-7"></a>       <span class="dt">title =</span> <span class="st">&quot;Figure 3: Prevelance of Exam Failures amongst</span><span class="ch">\n</span><span class="st">Students by Level of Mother&#39;s Education&quot;</span>,</span>
+<span id="cb7-8"><a href="access.html#cb7-8"></a>       <span class="dt">fill =</span> <span class="st">&quot;Previous </span><span class="ch">\n</span><span class="st">Exam Failures?&quot;</span>,</span>
+<span id="cb7-9"><a href="access.html#cb7-9"></a>       <span class="dt">caption =</span> <span class="st">&quot;Source: Example Data Source (2020)&quot;</span>)<span class="op">+</span></span>
+<span id="cb7-10"><a href="access.html#cb7-10"></a><span class="st">  </span><span class="kw">theme_minimal</span>()</span></code></pre></div>
+<div class="figure"><span id="fig:unnamed-chunk-9"></span>
+<img src="bookdown-demo_files/figure-html/unnamed-chunk-9-1.png" alt="The colours set on this plot are far too similair" width="672" />
+<p class="caption">
+Figure 7.1: The colours set on this plot are far too similair
+</p>
+</div>
 <p>Previous advice already presented on the use of colour in graphs and maps (using it to highlight, use it sparingly etc.) are still relevant and contribute to ensuring accessibility. The advice presented here tends to focus on the choice of colours themselves.</p>
 <ul>
 <li><p>Ensure the colours are accessible.</p>
@@ -234,15 +248,30 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Blue palettes are a safe default starting point as they are colour blind safe and are visible in grayscale, as shown in the picture below.</p></li>
 </ul></li>
 </ul>
-<p><img src="img/colour_blind_graphs.png" width="100%" /></p>
-<p><img src="img/colour_blind_2.png" width="100%" /></p>
+<div class="figure"><span id="fig:unnamed-chunk-10"></span>
+<img src="img/colour_blind_graphs.png" alt="A demonstration of how a colour-blind person would see a colourful graph" width="100%" />
+<p class="caption">
+Figure 7.2: A demonstration of how a colour-blind person would see a colourful graph
+</p>
+</div>
+<div class="figure"><span id="fig:unnamed-chunk-11"></span>
+<img src="img/colour_blind_2.png" alt="Side by side comparison of colours converted to greyscale" width="100%" />
+<p class="caption">
+Figure 7.3: Side by side comparison of colours converted to greyscale
+</p>
+</div>
 <ul>
 <li><p>Choose colours carefully.</p>
 <ul>
 <li>Consider cultural context. Colours often have some inherent culturally defined associations. For instance, using colours people associate with familiar concepts can improve the quality and speed of information processing, such as using blue for water on a map.</li>
 </ul></li>
 </ul>
-<p><img src="img/cultural_context.png" width="100%" /></p>
+<div class="figure"><span id="fig:unnamed-chunk-12"></span>
+<img src="img/cultural_context.png" alt="Using colours logically" width="100%" />
+<p class="caption">
+Figure 7.4: Using colours logically
+</p>
+</div>
 <ul>
 <li><p>Understand the digital colour palette</p>
 <ul>
@@ -250,11 +279,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li><p><strong>Hue</strong> – Hues are colours. They do not have a natural order and therefore users cannot assign a logical order to them. Small changes in hue are easy to detect although colour blindness can affect how well people can detect these differences.</p></li>
 </ul>
-<p><img src="img/visegs/eghue.png" width="100%" /></p>
+<div class="figure"><span id="fig:unnamed-chunk-13"></span>
+<img src="img/visegs/eghue.png" alt="Hue" width="100%" />
+<p class="caption">
+Figure 7.5: Hue
+</p>
+</div>
 <ul>
 <li><strong>Saturation</strong> – This is the intensity of a colour, ranging from grey/white (no saturation) to rich, vibrant, almost glowing colour. Saturation is perceived on a continuous scale, although it is difficult to detect small changes. High saturation can also cause issues for those with certain visual/light sensitivity problems.</li>
 </ul>
-<p><img src="img/visegs/egsat.png" width="100%" /></p>
+<div class="figure"><span id="fig:unnamed-chunk-14"></span>
+<img src="img/visegs/egsat.png" alt="Saturation" width="100%" />
+<p class="caption">
+Figure 7.6: Saturation
+</p>
+</div>
 <ul>
 <li><strong>Luminance</strong> – the brightness of colour. Also perceived as continuous ordered scale from dark to light. This natural order can help us optimize colour schemes for maximum distinction and differentiation.
 <ul>
@@ -263,11 +302,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Changes in luminance need to be larger if creating a line graph as the white space between the lines makes it harder to quickly compare.</li>
 </ul></li>
 </ul>
-<p><img src="img/visegs/eglum.png" width="100%" /></p>
+<div class="figure"><span id="fig:unnamed-chunk-15"></span>
+<img src="img/visegs/eglum.png" alt="Luminance" width="100%" />
+<p class="caption">
+Figure 7.7: Luminance
+</p>
+</div>
 <ul>
 <li>Never use an image as a background. This looks messy and cluttered and can make it difficult to read the graph.</li>
 </ul>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<div class="figure"><span id="fig:unnamed-chunk-16"></span>
+<img src="bookdown-demo_files/figure-html/unnamed-chunk-16-1.png" alt="Using a background image in a plot" width="672" />
+<p class="caption">
+Figure 7.8: Using a background image in a plot
+</p>
+</div>
 <ul>
 <li><p>Know how to use colour effectively</p>
 <ul>
@@ -275,7 +324,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Use borders – adding thin borders to the edges of bars can enhance clarity/separation.</li>
 </ul></li>
 </ul>
-<p><img src="img/visegs/egcolsgoodpractice.png" width="100%" /></p>
+<div class="figure"><span id="fig:unnamed-chunk-17"></span>
+<img src="img/visegs/egcolsgoodpractice.png" alt="Use of alternating colours and borders" width="100%" />
+<p class="caption">
+Figure 7.9: Use of alternating colours and borders
+</p>
+</div>
 <ul>
 <li>Avoid overuse of saturated colours.
 <ul>
@@ -284,36 +338,36 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Bold, saturated colours can have visual side-effects. They may appear to glow for many users, can generate after-images and can affect how other colours appear.</li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="access.html#cb2-1"></a><span class="kw">ggplot</span>(MathsGrades, <span class="kw">aes</span>(<span class="dt">x =</span> MotherEduc, <span class="dt">fill =</span> Ever_fail))<span class="op">+</span></span>
-<span id="cb2-2"><a href="access.html#cb2-2"></a><span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">position =</span> <span class="st">&quot;fill&quot;</span>, <span class="dt">width =</span> <span class="fl">0.8</span>)<span class="op">+</span></span>
-<span id="cb2-3"><a href="access.html#cb2-3"></a><span class="st">  </span><span class="kw">scale_fill_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&quot;#03F8FF&quot;</span>, <span class="st">&quot;#FF3360&quot;</span>))<span class="op">+</span></span>
-<span id="cb2-4"><a href="access.html#cb2-4"></a><span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">labels =</span> percent)<span class="op">+</span></span>
-<span id="cb2-5"><a href="access.html#cb2-5"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Mother&#39;s Education Level&quot;</span>,</span>
-<span id="cb2-6"><a href="access.html#cb2-6"></a>       <span class="dt">y =</span> <span class="st">&quot;Count&quot;</span>,</span>
-<span id="cb2-7"><a href="access.html#cb2-7"></a>       <span class="dt">title =</span> <span class="st">&quot;Figure 3: Prevelance of Exam Failures amongst</span><span class="ch">\n</span><span class="st">Students by Level of Mother&#39;s Education&quot;</span>,</span>
-<span id="cb2-8"><a href="access.html#cb2-8"></a>       <span class="dt">fill =</span> <span class="st">&quot;Previous </span><span class="ch">\n</span><span class="st">Exam Failures?&quot;</span>,</span>
-<span id="cb2-9"><a href="access.html#cb2-9"></a>       <span class="dt">caption =</span> <span class="st">&quot;Source: Example Data Source (2020)&quot;</span>)<span class="op">+</span></span>
-<span id="cb2-10"><a href="access.html#cb2-10"></a><span class="st">  </span><span class="kw">theme_minimal</span>()</span></code></pre></div>
-<div class="figure"><span id="fig:unnamed-chunk-12"></span>
-<img src="bookdown-demo_files/figure-html/unnamed-chunk-12-1.png" alt="Over Saturated Colours on a graph" width="672" />
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="access.html#cb8-1"></a><span class="kw">ggplot</span>(MathsGrades, <span class="kw">aes</span>(<span class="dt">x =</span> MotherEduc, <span class="dt">fill =</span> Ever_fail))<span class="op">+</span></span>
+<span id="cb8-2"><a href="access.html#cb8-2"></a><span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">position =</span> <span class="st">&quot;fill&quot;</span>, <span class="dt">width =</span> <span class="fl">0.8</span>)<span class="op">+</span></span>
+<span id="cb8-3"><a href="access.html#cb8-3"></a><span class="st">  </span><span class="kw">scale_fill_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&quot;#03F8FF&quot;</span>, <span class="st">&quot;#FF3360&quot;</span>))<span class="op">+</span></span>
+<span id="cb8-4"><a href="access.html#cb8-4"></a><span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">labels =</span> percent)<span class="op">+</span></span>
+<span id="cb8-5"><a href="access.html#cb8-5"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Mother&#39;s Education Level&quot;</span>,</span>
+<span id="cb8-6"><a href="access.html#cb8-6"></a>       <span class="dt">y =</span> <span class="st">&quot;Count&quot;</span>,</span>
+<span id="cb8-7"><a href="access.html#cb8-7"></a>       <span class="dt">title =</span> <span class="st">&quot;Figure 3: Prevelance of Exam Failures amongst</span><span class="ch">\n</span><span class="st">Students by Level of Mother&#39;s Education&quot;</span>,</span>
+<span id="cb8-8"><a href="access.html#cb8-8"></a>       <span class="dt">fill =</span> <span class="st">&quot;Previous </span><span class="ch">\n</span><span class="st">Exam Failures?&quot;</span>,</span>
+<span id="cb8-9"><a href="access.html#cb8-9"></a>       <span class="dt">caption =</span> <span class="st">&quot;Source: Example Data Source (2020)&quot;</span>)<span class="op">+</span></span>
+<span id="cb8-10"><a href="access.html#cb8-10"></a><span class="st">  </span><span class="kw">theme_minimal</span>()</span></code></pre></div>
+<div class="figure"><span id="fig:unnamed-chunk-18"></span>
+<img src="bookdown-demo_files/figure-html/unnamed-chunk-18-1.png" alt="Over Saturated Colours on a graph" width="672" />
 <p class="caption">
-Figure 7.1: Over Saturated Colours on a graph
+Figure 7.10: Over Saturated Colours on a graph
 </p>
 </div>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="access.html#cb3-1"></a><span class="kw">ggplot</span>(MathsGrades, <span class="kw">aes</span>(<span class="dt">x =</span> MotherEduc, <span class="dt">fill =</span> Ever_fail))<span class="op">+</span></span>
-<span id="cb3-2"><a href="access.html#cb3-2"></a><span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">position =</span> <span class="st">&quot;fill&quot;</span>, <span class="dt">width =</span> <span class="fl">0.8</span>, <span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>)<span class="op">+</span></span>
-<span id="cb3-3"><a href="access.html#cb3-3"></a><span class="st">  </span><span class="kw">scale_fill_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&quot;#60BDC0&quot;</span>, <span class="st">&quot;#C07384&quot;</span>))<span class="op">+</span></span>
-<span id="cb3-4"><a href="access.html#cb3-4"></a><span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">labels =</span> percent)<span class="op">+</span></span>
-<span id="cb3-5"><a href="access.html#cb3-5"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Mother&#39;s Education Level&quot;</span>,</span>
-<span id="cb3-6"><a href="access.html#cb3-6"></a>       <span class="dt">y =</span> <span class="st">&quot;Count&quot;</span>,</span>
-<span id="cb3-7"><a href="access.html#cb3-7"></a>       <span class="dt">title =</span> <span class="st">&quot;Figure 3: Prevelance of Exam Failures amongst</span><span class="ch">\n</span><span class="st">Students by Level of Mother&#39;s Education&quot;</span>,</span>
-<span id="cb3-8"><a href="access.html#cb3-8"></a>       <span class="dt">fill =</span> <span class="st">&quot;Previous </span><span class="ch">\n</span><span class="st">Exam Failures?&quot;</span>,</span>
-<span id="cb3-9"><a href="access.html#cb3-9"></a>       <span class="dt">caption =</span> <span class="st">&quot;Source: Example Data Source (2020)&quot;</span>)<span class="op">+</span></span>
-<span id="cb3-10"><a href="access.html#cb3-10"></a><span class="st">  </span><span class="kw">theme_minimal</span>()</span></code></pre></div>
-<div class="figure"><span id="fig:unnamed-chunk-13"></span>
-<img src="bookdown-demo_files/figure-html/unnamed-chunk-13-1.png" alt="Low saturation makes the graph more pleasant to look at" width="672" />
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="access.html#cb9-1"></a><span class="kw">ggplot</span>(MathsGrades, <span class="kw">aes</span>(<span class="dt">x =</span> MotherEduc, <span class="dt">fill =</span> Ever_fail))<span class="op">+</span></span>
+<span id="cb9-2"><a href="access.html#cb9-2"></a><span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">position =</span> <span class="st">&quot;fill&quot;</span>, <span class="dt">width =</span> <span class="fl">0.8</span>, <span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>)<span class="op">+</span></span>
+<span id="cb9-3"><a href="access.html#cb9-3"></a><span class="st">  </span><span class="kw">scale_fill_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&quot;#60BDC0&quot;</span>, <span class="st">&quot;#C07384&quot;</span>))<span class="op">+</span></span>
+<span id="cb9-4"><a href="access.html#cb9-4"></a><span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">labels =</span> percent)<span class="op">+</span></span>
+<span id="cb9-5"><a href="access.html#cb9-5"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Mother&#39;s Education Level&quot;</span>,</span>
+<span id="cb9-6"><a href="access.html#cb9-6"></a>       <span class="dt">y =</span> <span class="st">&quot;Count&quot;</span>,</span>
+<span id="cb9-7"><a href="access.html#cb9-7"></a>       <span class="dt">title =</span> <span class="st">&quot;Figure 3: Prevelance of Exam Failures amongst</span><span class="ch">\n</span><span class="st">Students by Level of Mother&#39;s Education&quot;</span>,</span>
+<span id="cb9-8"><a href="access.html#cb9-8"></a>       <span class="dt">fill =</span> <span class="st">&quot;Previous </span><span class="ch">\n</span><span class="st">Exam Failures?&quot;</span>,</span>
+<span id="cb9-9"><a href="access.html#cb9-9"></a>       <span class="dt">caption =</span> <span class="st">&quot;Source: Example Data Source (2020)&quot;</span>)<span class="op">+</span></span>
+<span id="cb9-10"><a href="access.html#cb9-10"></a><span class="st">  </span><span class="kw">theme_minimal</span>()</span></code></pre></div>
+<div class="figure"><span id="fig:unnamed-chunk-19"></span>
+<img src="bookdown-demo_files/figure-html/unnamed-chunk-19-1.png" alt="Low saturation makes the graph more pleasant to look at" width="672" />
 <p class="caption">
-Figure 7.2: Low saturation makes the graph more pleasant to look at
+Figure 7.11: Low saturation makes the graph more pleasant to look at
 </p>
 </div>
 <ul>
@@ -326,7 +380,71 @@ Figure 7.2: Low saturation makes the graph more pleasant to look at
 <li>Most palettes are designed to appear on top of a white background. It provides a helpful reference for the colour scale being used.</li>
 </ul></li>
 </ul>
+</div>
+<div id="using-colour-in-ggplot2" class="section level2">
+<h2><span class="header-section-number">7.4</span> Using colour in ggplot2</h2>
+<p>ggplot2 comes with a wide array of capabilities to control the colour of various aspects of a graph. There are two main ways to add colour to a plot, either by allowing plotted objects (bar, points etc.) to vary according to a specified variable in your data or by simply setting something as a static colour.</p>
+<p>To use a variable to define your colours, you include either <code>fill = variable</code> or <code>colour = variable</code> in the aesthetic mapping of your plot. <code>fill</code> refers to the space within objects/shapes such as the whitespace within a boxplot or a bar, while <code>colour</code> tends to refer to borders or points.</p>
+<p>In the example below, we have assigned the <code>fill</code> of the column to vary according to the HHTYPE variable. Thereby turning the normal bar graph into a stacked bar graph.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="access.html#cb10-1"></a><span class="kw">ggplot</span>(BeanSurvey, <span class="kw">aes</span>(<span class="dt">x =</span> VILLAGE, <span class="dt">y =</span> ADULTS, <span class="dt">fill =</span> HHTYPE))<span class="op">+</span></span>
+<span id="cb10-2"><a href="access.html#cb10-2"></a><span class="st">  </span><span class="kw">geom_col</span>()</span></code></pre></div>
+<div class="figure"><span id="fig:unnamed-chunk-21"></span>
+<img src="bookdown-demo_files/figure-html/unnamed-chunk-21-1.png" alt="Using fill (barchart)" width="672" />
+<p class="caption">
+Figure 7.12: Using fill (barchart)
+</p>
+</div>
+<p>As we can see below the same idea does not really work if we tried the colour argument instead.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="access.html#cb11-1"></a><span class="kw">ggplot</span>(BeanSurvey, <span class="kw">aes</span>(<span class="dt">x =</span> VILLAGE, <span class="dt">y =</span> ADULTS, <span class="dt">colour =</span> HHTYPE))<span class="op">+</span></span>
+<span id="cb11-2"><a href="access.html#cb11-2"></a><span class="st">  </span><span class="kw">geom_col</span>()</span></code></pre></div>
+<div class="figure"><span id="fig:unnamed-chunk-22"></span>
+<img src="bookdown-demo_files/figure-html/unnamed-chunk-22-1.png" alt="Using colour (barchart)" width="672" />
+<p class="caption">
+Figure 7.13: Using colour (barchart)
+</p>
+</div>
+<p>Colour is better suited to graphs such as a scatterplot. In this case the plot has been jittered to avoid overplotting.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="access.html#cb12-1"></a><span class="kw">ggplot</span>(MathsGrades, <span class="kw">aes</span>(<span class="dt">x =</span> Mock, <span class="dt">y =</span> Final, <span class="dt">colour =</span> Sex))<span class="op">+</span></span>
+<span id="cb12-2"><a href="access.html#cb12-2"></a><span class="st">  </span><span class="kw">geom_jitter</span>()</span></code></pre></div>
+<div class="figure"><span id="fig:unnamed-chunk-23"></span>
+<img src="bookdown-demo_files/figure-html/unnamed-chunk-23-1.png" alt="Using colour (scatter/jitterplot)" width="672" />
+<p class="caption">
+Figure 7.14: Using colour (scatter/jitterplot)
+</p>
+</div>
+<p>Again, this doesn’t work when we try the reverse with fill.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="access.html#cb13-1"></a><span class="kw">ggplot</span>(MathsGrades, <span class="kw">aes</span>(<span class="dt">x =</span> Mock, <span class="dt">y =</span> Final, <span class="dt">fill =</span> Sex))<span class="op">+</span></span>
+<span id="cb13-2"><a href="access.html#cb13-2"></a><span class="st">  </span><span class="kw">geom_jitter</span>()</span></code></pre></div>
+<div class="figure"><span id="fig:unnamed-chunk-24"></span>
+<img src="bookdown-demo_files/figure-html/unnamed-chunk-24-1.png" alt="Using fill (scatter/jitterplot)" width="672" />
+<p class="caption">
+Figure 7.15: Using fill (scatter/jitterplot)
+</p>
+</div>
+<p>If we don’t wish to allow colour to vary according to a variable in our data but rather set all objects to the same colour (other than the default grey/black), then we set the colour inside of the specific geom instead and not within a call to <code>aes()</code>. We can assign the colour using a hex code e.g. <code>fill = "#CD0000"</code> for a deep shade of red or by using the name of a pre-defined ggplot2 colour such as <code>colour = "dodgerblue4"</code></p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="access.html#cb14-1"></a><span class="kw">ggplot</span>(BeanSurvey, <span class="kw">aes</span>(<span class="dt">x =</span> VILLAGE, <span class="dt">y =</span> ADULTS))<span class="op">+</span></span>
+<span id="cb14-2"><a href="access.html#cb14-2"></a><span class="st">  </span><span class="kw">geom_col</span>(<span class="dt">fill =</span> <span class="st">&quot;#CD0000&quot;</span>)</span></code></pre></div>
+<div class="figure"><span id="fig:unnamed-chunk-25"></span>
+<img src="bookdown-demo_files/figure-html/unnamed-chunk-25-1.png" alt="Setting fill with hex code" width="672" />
+<p class="caption">
+Figure 7.16: Setting fill with hex code
+</p>
+</div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="access.html#cb15-1"></a><span class="kw">ggplot</span>(MathsGrades, <span class="kw">aes</span>(<span class="dt">x =</span> Mock, <span class="dt">y =</span> Final))<span class="op">+</span></span>
+<span id="cb15-2"><a href="access.html#cb15-2"></a><span class="st">  </span><span class="kw">geom_jitter</span>(<span class="dt">colour =</span> <span class="st">&quot;dodgerblue4&quot;</span>)</span></code></pre></div>
+<div class="figure"><span id="fig:unnamed-chunk-26"></span>
+<img src="bookdown-demo_files/figure-html/unnamed-chunk-26-1.png" alt="Setting colour with named colour" width="672" />
+<p class="caption">
+Figure 7.17: Setting colour with named colour
+</p>
+</div>
+<div id="changing-the-colourfill-scale" class="section level3">
+<h3><span class="header-section-number">7.4.1</span> Changing the colour/fill scale</h3>
+</div>
+<div id="setting-colours-manually" class="section level3">
+<h3><span class="header-section-number">7.4.2</span> Setting colours manually</h3>
 
+</div>
 </div>
 </div>
             </section>
