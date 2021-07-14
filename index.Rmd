@@ -8,6 +8,7 @@ documentclass: book
 bibliography: [book.bib, packages.bib]
 biblio-style: apalike
 link-citations: yes
+always_allow_html: true
 ---
 
 # Introduction
@@ -29,9 +30,6 @@ knitr::write_bib(c(
 ), 'packages.bib')
 
 library(knitr)
+library(tidyverse)
+library(DT)
 ```
-
-```{r}
-library(ggplot2)
-```
-

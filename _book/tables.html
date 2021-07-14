@@ -24,7 +24,7 @@
 <meta name="author" content="Alex Thomson" />
 
 
-<meta name="date" content="2021-07-06" />
+<meta name="date" content="2021-07-14" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -152,11 +152,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.1" data-path="tables.html"><a href="tables.html#introduction-to-flextable"><i class="fa fa-check"></i><b>4.1</b> Introduction to Flextable</a></li>
 <li class="chapter" data-level="4.2" data-path="tables.html"><a href="tables.html#general-guidance"><i class="fa fa-check"></i><b>4.2</b> General Guidance</a><ul>
 <li class="chapter" data-level="4.2.1" data-path="tables.html"><a href="tables.html#title-column-headers-and-labels"><i class="fa fa-check"></i><b>4.2.1</b> Title, column headers and labels</a></li>
+<li class="chapter" data-level="4.2.2" data-path="tables.html"><a href="tables.html#comparing-numbers-rounding-decimal-places-and-alignment"><i class="fa fa-check"></i><b>4.2.2</b> Comparing numbers (rounding, decimal places and alignment)</a></li>
+<li class="chapter" data-level="4.2.3" data-path="tables.html"><a href="tables.html#orientation"><i class="fa fa-check"></i><b>4.2.3</b> Orientation</a></li>
+<li class="chapter" data-level="4.2.4" data-path="tables.html"><a href="tables.html#order-of-rows-and-columns"><i class="fa fa-check"></i><b>4.2.4</b> Order of rows and columns</a></li>
+<li class="chapter" data-level="4.2.5" data-path="tables.html"><a href="tables.html#borders"><i class="fa fa-check"></i><b>4.2.5</b> Borders</a></li>
+<li class="chapter" data-level="4.2.6" data-path="tables.html"><a href="tables.html#font"><i class="fa fa-check"></i><b>4.2.6</b> Font</a></li>
+<li class="chapter" data-level="4.2.7" data-path="tables.html"><a href="tables.html#grouping-of-rows-and-columns"><i class="fa fa-check"></i><b>4.2.7</b> Grouping of rows and columns</a></li>
+<li class="chapter" data-level="4.2.8" data-path="tables.html"><a href="tables.html#summary-rows-and-columns"><i class="fa fa-check"></i><b>4.2.8</b> Summary rows and columns</a></li>
+<li class="chapter" data-level="4.2.9" data-path="tables.html"><a href="tables.html#other"><i class="fa fa-check"></i><b>4.2.9</b> Other</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="graphs.html"><a href="graphs.html"><i class="fa fa-check"></i><b>5</b> Graphs</a></li>
 <li class="chapter" data-level="6" data-path="maps.html"><a href="maps.html"><i class="fa fa-check"></i><b>6</b> Maps</a></li>
-<li class="chapter" data-level="7" data-path="access.html"><a href="access.html"><i class="fa fa-check"></i><b>7</b> Accessibility</a></li>
+<li class="chapter" data-level="7" data-path="access.html"><a href="access.html"><i class="fa fa-check"></i><b>7</b> Accessibility</a><ul>
+<li class="chapter" data-level="7.1" data-path="access.html"><a href="access.html#tables-1"><i class="fa fa-check"></i><b>7.1</b> Tables</a></li>
+<li class="chapter" data-level="7.2" data-path="access.html"><a href="access.html#graphsmaps"><i class="fa fa-check"></i><b>7.2</b> Graphs/Maps</a></li>
+<li class="chapter" data-level="7.3" data-path="access.html"><a href="access.html#colour"><i class="fa fa-check"></i><b>7.3</b> Colour</a></li>
+</ul></li>
 <li class="chapter" data-level="" data-path="other-resources.html"><a href="other-resources.html"><i class="fa fa-check"></i>Other Resources</a></li>
 <li class="divider"></li>
 <li><a href="https://stats4sd.org/" target="blank">A Stats4SD Resource</a></li>
@@ -215,6 +227,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>body: this contains all of the data from the data frame</li>
 <li>footer: not present by default but can be used to add footnotes or additional content</li>
 </ul>
+<p>Additionally, in flextable notation <code>i</code> donates rows and <code>j</code> donates columns. Both can be referred to in functions by their row or column number. Note however that the numbering works within parts e.g. by default the row of column headers is i=1 within the part “header”, while the first row of data is i=1 within the part “body”.</p>
 
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-2"></span>
 <img src="img/flextable_object.png" alt="Structure of a flextable object" width="186" />
@@ -222,6 +235,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 Figure 4.1: <a href="https://ardata-fr.github.io/flextable-book/design.html#table-parts">Structure of a flextable object</a>
 </p>
 </div>
+<p>Flextable can be installed to R in the usual manner from CRAN.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="tables.html#cb1-1"></a><span class="co">#install.packages(&quot;flextable&quot;)</span></span>
 <span id="cb1-2"><a href="tables.html#cb1-2"></a></span>
 <span id="cb1-3"><a href="tables.html#cb1-3"></a><span class="kw">library</span>(flextable)</span></code></pre></div>
@@ -241,15 +255,15 @@ Figure 4.1: <a href="https://ardata-fr.github.io/flextable-book/design.html#tabl
 <li>Source of data</li>
 <li>Key quality information</li>
 </ul>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="tables.html#cb2-1"></a>Data &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;data/MathsGrades.csv&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="tables.html#cb3-1"></a><span class="kw">library</span>(tidyverse)</span></code></pre></div>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="tables.html#cb4-1"></a>Data<span class="op">%&gt;%</span></span>
-<span id="cb4-2"><a href="tables.html#cb4-2"></a><span class="st">  </span><span class="kw">group_by</span>(Sex)<span class="op">%&gt;%</span></span>
-<span id="cb4-3"><a href="tables.html#cb4-3"></a><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">Mock.mean =</span> <span class="kw">mean</span>(Mock),</span>
-<span id="cb4-4"><a href="tables.html#cb4-4"></a>            <span class="dt">Final.mean =</span> <span class="kw">mean</span>(Final),</span>
-<span id="cb4-5"><a href="tables.html#cb4-5"></a>            <span class="dt">Failures.mean =</span> <span class="kw">mean</span>(Failures))<span class="op">%&gt;%</span></span>
-<span id="cb4-6"><a href="tables.html#cb4-6"></a><span class="st">  </span><span class="kw">flextable</span>()</span></code></pre></div>
-<template id="a6c7bf61-23e0-4901-8fb9-42151e5088f5"><style>
+<div id="using-flextable---column-headers-and-titles" class="section level4">
+<h4><span class="header-section-number">4.2.1.1</span> Using Flextable - Column headers and titles</h4>
+<p>Let’s look at how we can start using the flextable package to create report ready tables. Starting with how we can set and edit the titles and column headers of our tables.</p>
+<p>First we are going to read in our data.</p>
+<p>The first dataset data we are using in this guide is an extract of a survey conducted in Uganda from farmers identified as growing beans.</p>
+<p>The dataset contains an extract of 50 responses to 23 of the survey questions, and has been imported to R as a data frame called <code>BeanSurvey</code>.</p>
+<p>A summary of the columns in the dataset is below.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="tables.html#cb2-1"></a>BeanSurvey &lt;-<span class="st"> </span><span class="kw">readRDS</span>(<span class="dt">file =</span> <span class="st">&quot;data/bean_survey.RDS&quot;</span>)</span></code></pre></div>
+<template id="60b0b772-ea68-4b3d-b4a0-abfbcb930b3f"><style>
 .tabwid table{
   border-collapse:collapse;
   line-height:1;
@@ -284,12 +298,12 @@ Figure 4.1: <a href="https://ardata-fr.github.io/flextable-book/design.html#tabl
 .tabwid table tr {
 background-color: transparent;
 }
-</style><div class="tabwid"><style>.cl-f4ac0056{border-collapse:collapse;}.cl-f4968b68{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-f496b28c{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:3pt;padding-top:3pt;padding-left:3pt;padding-right:3pt;line-height: 1;background-color:transparent;}.cl-f496b28d{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:3pt;padding-top:3pt;padding-left:3pt;padding-right:3pt;line-height: 1;background-color:transparent;}.cl-f4970098{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-f4970099{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-f497009a{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-f497009b{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-f497009c{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 2pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-f497009d{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 2pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table class='cl-f4ac0056'>
-<thead><tr style="overflow-wrap:break-word;"><td class="cl-f497009d"><p class="cl-f496b28c"><span class="cl-f4968b68">Sex</span></p></td><td class="cl-f497009c"><p class="cl-f496b28d"><span class="cl-f4968b68">Mock.mean</span></p></td><td class="cl-f497009c"><p class="cl-f496b28d"><span class="cl-f4968b68">Final.mean</span></p></td><td class="cl-f497009c"><p class="cl-f496b28d"><span class="cl-f4968b68">Failures.mean</span></p></td></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-f4970099"><p class="cl-f496b28c"><span class="cl-f4968b68">F</span></p></td><td class="cl-f4970098"><p class="cl-f496b28d"><span class="cl-f4968b68">51</span></p></td><td class="cl-f4970098"><p class="cl-f496b28d"><span class="cl-f4968b68">54</span></p></td><td class="cl-f4970098"><p class="cl-f496b28d"><span class="cl-f4968b68">0.29</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-f497009b"><p class="cl-f496b28c"><span class="cl-f4968b68">M</span></p></td><td class="cl-f497009a"><p class="cl-f496b28d"><span class="cl-f4968b68">55</span></p></td><td class="cl-f497009a"><p class="cl-f496b28d"><span class="cl-f4968b68">57</span></p></td><td class="cl-f497009a"><p class="cl-f496b28d"><span class="cl-f4968b68">0.34</span></p></td></tr></tbody></table></div></template>
-<div id="9df67277-327f-428c-ad33-5489e578c318"></div>
+</style><div class="tabwid"><style>.cl-bc4c6ac4{border-collapse:collapse;}.cl-bc3e5b3c{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-bc3e827e{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:3pt;padding-top:3pt;padding-left:3pt;padding-right:3pt;line-height: 1;background-color:transparent;}.cl-bc3f1b62{width:252pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bc3f1b63{width:141pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bc3f1b64{width:252pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bc3f1b65{width:141pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bc3f1b66{width:252pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bc3f1b67{width:141pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bc3f1b68{width:141pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bc3f1b69{width:252pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bc3f1b6a{width:252pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bc3f1b6b{width:141pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bc3f1b6c{width:252pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bc3fbc0c{width:141pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bc3fbc0d{width:141pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bc3fbc0e{width:252pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bc3fbc0f{width:141pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bc3fbc10{width:252pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bc3fbc11{width:141pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 2pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bc3fbc12{width:252pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 2pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table class='cl-bc4c6ac4'>
+<thead><tr style="overflow-wrap:break-word;"><td class="cl-bc3fbc11"><p class="cl-bc3e827e"><span class="cl-bc3e5b3c">Column</span></p></td><td class="cl-bc3fbc12"><p class="cl-bc3e827e"><span class="cl-bc3e5b3c">Description</span></p></td></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-bc3f1b63"><p class="cl-bc3e827e"><span class="cl-bc3e5b3c">ID</span></p></td><td class="cl-bc3f1b62"><p class="cl-bc3e827e"><span class="cl-bc3e5b3c">Farmer ID</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-bc3f1b67"><p class="cl-bc3e827e"><span class="cl-bc3e5b3c">VILLAGE</span></p></td><td class="cl-bc3f1b66"><p class="cl-bc3e827e"><span class="cl-bc3e5b3c">Village name</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-bc3f1b68"><p class="cl-bc3e827e"><span class="cl-bc3e5b3c">HHTYPE</span></p></td><td class="cl-bc3f1b69"><p class="cl-bc3e827e"><span class="cl-bc3e5b3c">Household composition</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-bc3fbc0d"><p class="cl-bc3e827e"><span class="cl-bc3e5b3c">GENDERHH</span></p></td><td class="cl-bc3fbc0e"><p class="cl-bc3e827e"><span class="cl-bc3e5b3c">Gender of Household Head</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-bc3f1b65"><p class="cl-bc3e827e"><span class="cl-bc3e5b3c">AGEHH</span></p></td><td class="cl-bc3f1b64"><p class="cl-bc3e827e"><span class="cl-bc3e5b3c">Age of Household Head</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-bc3fbc0f"><p class="cl-bc3e827e"><span class="cl-bc3e5b3c">OCCUHH</span></p></td><td class="cl-bc3fbc10"><p class="cl-bc3e827e"><span class="cl-bc3e5b3c">Occupation of Household Head</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-bc3fbc0d"><p class="cl-bc3e827e"><span class="cl-bc3e5b3c">ADULTS</span></p></td><td class="cl-bc3fbc0e"><p class="cl-bc3e827e"><span class="cl-bc3e5b3c">Number of Adults within the household</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-bc3f1b65"><p class="cl-bc3e827e"><span class="cl-bc3e5b3c">CHILDREN</span></p></td><td class="cl-bc3f1b64"><p class="cl-bc3e827e"><span class="cl-bc3e5b3c">Number of Children (&lt;18) within the household</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-bc3f1b65"><p class="cl-bc3e827e"><span class="cl-bc3e5b3c">MATOKE</span></p></td><td class="cl-bc3f1b64"><p class="cl-bc3e827e"><span class="cl-bc3e5b3c">Do they grow matoke?</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-bc3f1b65"><p class="cl-bc3e827e"><span class="cl-bc3e5b3c">MAIZE</span></p></td><td class="cl-bc3f1b64"><p class="cl-bc3e827e"><span class="cl-bc3e5b3c">Do they grow maize?</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-bc3f1b65"><p class="cl-bc3e827e"><span class="cl-bc3e5b3c">BEANS</span></p></td><td class="cl-bc3f1b64"><p class="cl-bc3e827e"><span class="cl-bc3e5b3c">Do they grow beans?</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-bc3f1b65"><p class="cl-bc3e827e"><span class="cl-bc3e5b3c">BANANA</span></p></td><td class="cl-bc3f1b64"><p class="cl-bc3e827e"><span class="cl-bc3e5b3c">Do they grow banana?</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-bc3f1b65"><p class="cl-bc3e827e"><span class="cl-bc3e5b3c">CASSAVA</span></p></td><td class="cl-bc3f1b64"><p class="cl-bc3e827e"><span class="cl-bc3e5b3c">Do they grow cassava?</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-bc3f1b65"><p class="cl-bc3e827e"><span class="cl-bc3e5b3c">COFFEE</span></p></td><td class="cl-bc3f1b64"><p class="cl-bc3e827e"><span class="cl-bc3e5b3c">Do they grow coffee?</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-bc3f1b65"><p class="cl-bc3e827e"><span class="cl-bc3e5b3c">LANDAREA</span></p></td><td class="cl-bc3f1b64"><p class="cl-bc3e827e"><span class="cl-bc3e5b3c">Land area of farm (acres)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-bc3f1b67"><p class="cl-bc3e827e"><span class="cl-bc3e5b3c">LABOR</span></p></td><td class="cl-bc3f1b66"><p class="cl-bc3e827e"><span class="cl-bc3e5b3c">Labor usage</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-bc3f1b68"><p class="cl-bc3e827e"><span class="cl-bc3e5b3c">INTERCROP</span></p></td><td class="cl-bc3f1b69"><p class="cl-bc3e827e"><span class="cl-bc3e5b3c">Intercrops with beans</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-bc3f1b67"><p class="cl-bc3e827e"><span class="cl-bc3e5b3c">DECISIONS</span></p></td><td class="cl-bc3f1b66"><p class="cl-bc3e827e"><span class="cl-bc3e5b3c">Household decision responsibility</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-bc3f1b65"><p class="cl-bc3e827e"><span class="cl-bc3e5b3c">SELLBEANS</span></p></td><td class="cl-bc3f1b64"><p class="cl-bc3e827e"><span class="cl-bc3e5b3c">Do they grow beans for sale?</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-bc3f1b6b"><p class="cl-bc3e827e"><span class="cl-bc3e5b3c">BEANSPLANTED_LR</span></p></td><td class="cl-bc3f1b6a"><p class="cl-bc3e827e"><span class="cl-bc3e5b3c">Quantity of beans planted in long rain season</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-bc3f1b6b"><p class="cl-bc3e827e"><span class="cl-bc3e5b3c">BEANSPLANTED_SR</span></p></td><td class="cl-bc3f1b6a"><p class="cl-bc3e827e"><span class="cl-bc3e5b3c">Quantity of beans planted in short rain season</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-bc3f1b6b"><p class="cl-bc3e827e"><span class="cl-bc3e5b3c">BEANSHARVESTED_LR</span></p></td><td class="cl-bc3f1b6a"><p class="cl-bc3e827e"><span class="cl-bc3e5b3c">Quantity of beans harvested in long rain season</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-bc3fbc0c"><p class="cl-bc3e827e"><span class="cl-bc3e5b3c">BEANSHARVESTED_SR</span></p></td><td class="cl-bc3f1b6c"><p class="cl-bc3e827e"><span class="cl-bc3e5b3c">Quantity of beans harvested in short rain season</span></p></td></tr></tbody></table></div></template>
+<div id="2eb45dd6-083d-477c-a484-86469bd12154"></div>
 <script>
-var dest = document.getElementById("9df67277-327f-428c-ad33-5489e578c318");
-var template = document.getElementById("a6c7bf61-23e0-4901-8fb9-42151e5088f5");
+var dest = document.getElementById("2eb45dd6-083d-477c-a484-86469bd12154");
+var template = document.getElementById("60b0b772-ea68-4b3d-b4a0-abfbcb930b3f");
 var caption = template.content.querySelector("caption");
 if(caption) {
   caption.style.cssText = "display:block;"
@@ -303,19 +317,18 @@ fantome.appendChild(templateContent);
 fantome.appendChild(templateContent);
 </script>
 
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="tables.html#cb5-1"></a>Data<span class="op">%&gt;%</span></span>
-<span id="cb5-2"><a href="tables.html#cb5-2"></a><span class="st">  </span><span class="kw">group_by</span>(Sex)<span class="op">%&gt;%</span></span>
-<span id="cb5-3"><a href="tables.html#cb5-3"></a><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">Mock.mean =</span> <span class="kw">mean</span>(Mock),</span>
-<span id="cb5-4"><a href="tables.html#cb5-4"></a>            <span class="dt">Final.mean =</span> <span class="kw">mean</span>(Final),</span>
-<span id="cb5-5"><a href="tables.html#cb5-5"></a>            <span class="dt">Failures.mean =</span> <span class="kw">mean</span>(Failures))<span class="op">%&gt;%</span></span>
-<span id="cb5-6"><a href="tables.html#cb5-6"></a><span class="st">  </span><span class="kw">flextable</span>()<span class="op">%&gt;%</span></span>
-<span id="cb5-7"><a href="tables.html#cb5-7"></a><span class="st">  </span><span class="kw">set_header_labels</span>(<span class="dt">Mock.mean =</span> <span class="st">&quot;Mock Result (Mean)&quot;</span>,</span>
-<span id="cb5-8"><a href="tables.html#cb5-8"></a>                    <span class="dt">Final.mean =</span> <span class="st">&quot;Final Result (Mean)&quot;</span>,</span>
-<span id="cb5-9"><a href="tables.html#cb5-9"></a>                    <span class="dt">Failures.mean =</span> <span class="st">&quot;Failures (Mean)&quot;</span>)<span class="op">%&gt;%</span></span>
-<span id="cb5-10"><a href="tables.html#cb5-10"></a><span class="st">  </span><span class="kw">align</span>(<span class="dt">align =</span> <span class="st">&quot;center&quot;</span>, <span class="dt">part =</span> <span class="st">&quot;header&quot;</span>)<span class="op">%&gt;%</span></span>
-<span id="cb5-11"><a href="tables.html#cb5-11"></a><span class="st">  </span><span class="kw">add_header_lines</span>(<span class="dt">values =</span> <span class="st">&quot;Table 1a: Average Exam Results by Sex&quot;</span>)<span class="op">%&gt;%</span></span>
-<span id="cb5-12"><a href="tables.html#cb5-12"></a><span class="st">  </span><span class="kw">autofit</span>()</span></code></pre></div>
-<template id="e64eee89-65be-4560-ae43-fb90cc2b7ca0"><style>
+<p>We shall start by producing some basic summaries of the data (mean number of adults in the household and mean number of children in the household). We shall also split this by Village.</p>
+<p>We can perform this data manipulation using the tidyverse range of packages. We shall save the summary data as <code>HHcomposition</code>.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="tables.html#cb3-1"></a><span class="kw">library</span>(tidyverse)</span>
+<span id="cb3-2"><a href="tables.html#cb3-2"></a></span>
+<span id="cb3-3"><a href="tables.html#cb3-3"></a>HHcomposition &lt;-<span class="st"> </span>BeanSurvey<span class="op">%&gt;%</span></span>
+<span id="cb3-4"><a href="tables.html#cb3-4"></a><span class="st">  </span><span class="kw">group_by</span>(VILLAGE)<span class="op">%&gt;%</span></span>
+<span id="cb3-5"><a href="tables.html#cb3-5"></a><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">ADULTS =</span> <span class="kw">mean</span>(ADULTS, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</span>
+<span id="cb3-6"><a href="tables.html#cb3-6"></a>            <span class="dt">CHILDREN =</span> <span class="kw">mean</span>(CHILDREN, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</span></code></pre></div>
+<p>Now that the data is in a structure (2 X 3) that could be used as a presentable table, we can make the first step of turning this data.frame into a flextable object using <code>flextable()</code>. Flextable supports the use of the pipe operator <code>%&gt;%</code> similar to other tidyverse packages.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="tables.html#cb4-1"></a>HHcomposition<span class="op">%&gt;%</span></span>
+<span id="cb4-2"><a href="tables.html#cb4-2"></a><span class="st">  </span><span class="kw">flextable</span>()</span></code></pre></div>
+<template id="63099383-f0a3-40e2-bc4d-09eed937a612"><style>
 .tabwid table{
   border-collapse:collapse;
   line-height:1;
@@ -350,12 +363,12 @@ fantome.appendChild(templateContent);
 .tabwid table tr {
 background-color: transparent;
 }
-</style><div class="tabwid"><style>.cl-f507f24e{border-collapse:collapse;}.cl-f4fea37e{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-f4fecb56{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:3pt;padding-top:3pt;padding-left:3pt;padding-right:3pt;line-height: 1;background-color:transparent;}.cl-f4fecb57{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:3pt;padding-top:3pt;padding-left:3pt;padding-right:3pt;line-height: 1;background-color:transparent;}.cl-f4fecb58{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:3pt;padding-top:3pt;padding-left:3pt;padding-right:3pt;line-height: 1;background-color:transparent;}.cl-f4ff18ae{width:92pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-f4ff18af{width:111pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-f4ff18b0{width:114pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-f4ff18b1{width:213pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-f4ff18b2{width:92pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-f4ff18b3{width:111pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-f4ff18b4{width:114pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-f4ff18b5{width:213pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-f4ff18b6{width:92pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-f4ff18b7{width:111pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-f4ff18b8{width:114pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-f4ff3f82{width:213pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-f4ff3f83{width:92pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 2pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-f4ff3f84{width:111pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 2pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-f4ff3f85{width:114pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 2pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-f4ff3f86{width:213pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 2pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table class='cl-f507f24e'>
-<thead><tr style="overflow-wrap:break-word;"><td  colspan="4"class="cl-f4ff3f82"><p class="cl-f4fecb56"><span class="cl-f4fea37e">Table 1a: Average Exam Results by Sex</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-f4ff3f86"><p class="cl-f4fecb57"><span class="cl-f4fea37e">Sex</span></p></td><td class="cl-f4ff3f85"><p class="cl-f4fecb57"><span class="cl-f4fea37e">Mock Result (Mean)</span></p></td><td class="cl-f4ff3f84"><p class="cl-f4fecb57"><span class="cl-f4fea37e">Final Result (Mean)</span></p></td><td class="cl-f4ff3f83"><p class="cl-f4fecb57"><span class="cl-f4fea37e">Failures (Mean)</span></p></td></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-f4ff18b1"><p class="cl-f4fecb56"><span class="cl-f4fea37e">F</span></p></td><td class="cl-f4ff18b0"><p class="cl-f4fecb58"><span class="cl-f4fea37e">51</span></p></td><td class="cl-f4ff18af"><p class="cl-f4fecb58"><span class="cl-f4fea37e">54</span></p></td><td class="cl-f4ff18ae"><p class="cl-f4fecb58"><span class="cl-f4fea37e">0.29</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-f4ff18b5"><p class="cl-f4fecb56"><span class="cl-f4fea37e">M</span></p></td><td class="cl-f4ff18b4"><p class="cl-f4fecb58"><span class="cl-f4fea37e">55</span></p></td><td class="cl-f4ff18b3"><p class="cl-f4fecb58"><span class="cl-f4fea37e">57</span></p></td><td class="cl-f4ff18b2"><p class="cl-f4fecb58"><span class="cl-f4fea37e">0.34</span></p></td></tr></tbody></table></div></template>
-<div id="4dfcd17f-33dc-4360-b3a1-43cfc90af10d"></div>
+</style><div class="tabwid"><style>.cl-bc7b053c{border-collapse:collapse;}.cl-bc6b9764{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-bc6b9765{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:3pt;padding-top:3pt;padding-left:3pt;padding-right:3pt;line-height: 1;background-color:transparent;}.cl-bc6b9766{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:3pt;padding-top:3pt;padding-left:3pt;padding-right:3pt;line-height: 1;background-color:transparent;}.cl-bc6c63d8{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bc6c63d9{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bc6c63da{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bc6c63db{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bc6c63dc{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 2pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bc6c63dd{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 2pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table class='cl-bc7b053c'>
+<thead><tr style="overflow-wrap:break-word;"><td class="cl-bc6c63dd"><p class="cl-bc6b9765"><span class="cl-bc6b9764">VILLAGE</span></p></td><td class="cl-bc6c63dc"><p class="cl-bc6b9766"><span class="cl-bc6b9764">ADULTS</span></p></td><td class="cl-bc6c63dc"><p class="cl-bc6b9766"><span class="cl-bc6b9764">CHILDREN</span></p></td></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-bc6c63d9"><p class="cl-bc6b9765"><span class="cl-bc6b9764">Kimbugu</span></p></td><td class="cl-bc6c63d8"><p class="cl-bc6b9766"><span class="cl-bc6b9764">2.1</span></p></td><td class="cl-bc6c63d8"><p class="cl-bc6b9766"><span class="cl-bc6b9764">2.2</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-bc6c63db"><p class="cl-bc6b9765"><span class="cl-bc6b9764">Lwala</span></p></td><td class="cl-bc6c63da"><p class="cl-bc6b9766"><span class="cl-bc6b9764">2.7</span></p></td><td class="cl-bc6c63da"><p class="cl-bc6b9766"><span class="cl-bc6b9764">2.3</span></p></td></tr></tbody></table></div></template>
+<div id="c510e2c3-e56d-4a9f-b814-b2a5e8366b6b"></div>
 <script>
-var dest = document.getElementById("4dfcd17f-33dc-4360-b3a1-43cfc90af10d");
-var template = document.getElementById("e64eee89-65be-4560-ae43-fb90cc2b7ca0");
+var dest = document.getElementById("c510e2c3-e56d-4a9f-b814-b2a5e8366b6b");
+var template = document.getElementById("63099383-f0a3-40e2-bc4d-09eed937a612");
 var caption = template.content.querySelector("caption");
 if(caption) {
   caption.style.cssText = "display:block;"
@@ -369,6 +382,212 @@ fantome.appendChild(templateContent);
 fantome.appendChild(templateContent);
 </script>
 
+<p>The default column headers are of course the column names of the data but we can use additional functions to make these more presentable. First we can change the headers using <code>set_header_labels()</code>.</p>
+<p>Note that our column names better explain the meanings of the columns and have now included the unit of measurements (mean) so that the numbers can be understood</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="tables.html#cb5-1"></a>HHcomposition<span class="op">%&gt;%</span></span>
+<span id="cb5-2"><a href="tables.html#cb5-2"></a><span class="st">  </span><span class="kw">flextable</span>()<span class="op">%&gt;%</span></span>
+<span id="cb5-3"><a href="tables.html#cb5-3"></a><span class="st">  </span><span class="kw">set_header_labels</span>(<span class="dt">VILLAGE =</span> <span class="st">&quot;Village&quot;</span>,</span>
+<span id="cb5-4"><a href="tables.html#cb5-4"></a>                    <span class="dt">ADULTS =</span> <span class="st">&quot;Adults (mean)&quot;</span>,</span>
+<span id="cb5-5"><a href="tables.html#cb5-5"></a>                    <span class="dt">CHILDREN =</span> <span class="st">&quot;Children (mean)&quot;</span>)</span></code></pre></div>
+<template id="a4fcf5fa-8399-41dc-82c3-37ebfbc0fe23"><style>
+.tabwid table{
+  border-collapse:collapse;
+  line-height:1;
+  margin-left:auto;
+  margin-right:auto;
+  border-width: 0;
+  display: table;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  table-layout: fixed;
+  border-spacing: 0;
+  border-color: transparent;
+}
+.tabwid_left table{
+  margin-left:0;
+}
+.tabwid_right table{
+  margin-right:0;
+}
+.tabwid td {
+    padding: 0;
+}
+.tabwid a {
+  text-decoration: none;
+}
+.tabwid thead {
+    background-color: transparent;
+}
+.tabwid tfoot {
+    background-color: transparent;
+}
+.tabwid table tr {
+background-color: transparent;
+}
+</style><div class="tabwid"><style>.cl-bc9fc1ce{border-collapse:collapse;}.cl-bc926858{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-bc926859{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:3pt;padding-top:3pt;padding-left:3pt;padding-right:3pt;line-height: 1;background-color:transparent;}.cl-bc92685a{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:3pt;padding-top:3pt;padding-left:3pt;padding-right:3pt;line-height: 1;background-color:transparent;}.cl-bc92685b{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bc92685c{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bc92685d{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bc92685e{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bc92685f{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 2pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bc926860{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 2pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table class='cl-bc9fc1ce'>
+<thead><tr style="overflow-wrap:break-word;"><td class="cl-bc926860"><p class="cl-bc926859"><span class="cl-bc926858">Village</span></p></td><td class="cl-bc92685f"><p class="cl-bc92685a"><span class="cl-bc926858">Adults (mean)</span></p></td><td class="cl-bc92685f"><p class="cl-bc92685a"><span class="cl-bc926858">Children (mean)</span></p></td></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-bc92685c"><p class="cl-bc926859"><span class="cl-bc926858">Kimbugu</span></p></td><td class="cl-bc92685b"><p class="cl-bc92685a"><span class="cl-bc926858">2.1</span></p></td><td class="cl-bc92685b"><p class="cl-bc92685a"><span class="cl-bc926858">2.2</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-bc92685e"><p class="cl-bc926859"><span class="cl-bc926858">Lwala</span></p></td><td class="cl-bc92685d"><p class="cl-bc92685a"><span class="cl-bc926858">2.7</span></p></td><td class="cl-bc92685d"><p class="cl-bc92685a"><span class="cl-bc926858">2.3</span></p></td></tr></tbody></table></div></template>
+<div id="10197a86-0393-4a31-a1b7-537f0c2c22fc"></div>
+<script>
+var dest = document.getElementById("10197a86-0393-4a31-a1b7-537f0c2c22fc");
+var template = document.getElementById("a4fcf5fa-8399-41dc-82c3-37ebfbc0fe23");
+var caption = template.content.querySelector("caption");
+if(caption) {
+  caption.style.cssText = "display:block;"
+  var newcapt = document.createElement("p");
+  newcapt.appendChild(caption)
+  dest.parentNode.insertBefore(newcapt, dest.previousSibling);
+}
+var fantome = dest.attachShadow({mode: 'open'});
+var templateContent = template.content;
+fantome.appendChild(templateContent);
+fantome.appendChild(templateContent);
+</script>
+
+<p>Next we can add a title using the function <code>add_header_lines()</code>.</p>
+<p>Additionally we have used the functions <code>align()</code> to centre align our title and <code>bold()</code> to make it bold face. Note that in both functions <code>i = 1, part = "header"</code> is telling R to apply these functions to row of the header “part” of our table. The row of column headers is now row 2 within the header.</p>
+<p>We can also use <code>autofit()</code> to automatically fit the table to a more appropriate width. If you are intending to use the tables in word documents, it would be advised to instead use <code>width()</code> to fit individual column widths as <code>autofit()</code> will not account for the width of the page.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="tables.html#cb6-1"></a>HHcomposition<span class="op">%&gt;%</span></span>
+<span id="cb6-2"><a href="tables.html#cb6-2"></a><span class="st">  </span><span class="kw">flextable</span>()<span class="op">%&gt;%</span></span>
+<span id="cb6-3"><a href="tables.html#cb6-3"></a><span class="st">  </span><span class="kw">set_header_labels</span>(<span class="dt">VILLAGE =</span> <span class="st">&quot;Village&quot;</span>,</span>
+<span id="cb6-4"><a href="tables.html#cb6-4"></a>                    <span class="dt">ADULTS =</span> <span class="st">&quot;Adults (mean)&quot;</span>,</span>
+<span id="cb6-5"><a href="tables.html#cb6-5"></a>                    <span class="dt">CHILDREN =</span> <span class="st">&quot;Children (mean)&quot;</span>)<span class="op">%&gt;%</span></span>
+<span id="cb6-6"><a href="tables.html#cb6-6"></a><span class="st">  </span><span class="kw">add_header_lines</span>(<span class="dt">values =</span> <span class="st">&quot;Household Composition Across Villages&quot;</span>)<span class="op">%&gt;%</span></span>
+<span id="cb6-7"><a href="tables.html#cb6-7"></a><span class="st">  </span><span class="kw">align</span>(<span class="dt">i =</span> <span class="dv">1</span>, <span class="dt">align =</span> <span class="st">&quot;center&quot;</span>, <span class="dt">part =</span> <span class="st">&quot;header&quot;</span>)<span class="op">%&gt;%</span></span>
+<span id="cb6-8"><a href="tables.html#cb6-8"></a><span class="st">  </span><span class="kw">bold</span>(<span class="dt">i =</span> <span class="dv">1</span>, <span class="dt">part =</span> <span class="st">&quot;header&quot;</span>)<span class="op">%&gt;%</span></span>
+<span id="cb6-9"><a href="tables.html#cb6-9"></a><span class="st">  </span><span class="kw">autofit</span>()</span></code></pre></div>
+<template id="1cc3bf9d-26ff-484d-84d0-0d5ea4f81eb0"><style>
+.tabwid table{
+  border-collapse:collapse;
+  line-height:1;
+  margin-left:auto;
+  margin-right:auto;
+  border-width: 0;
+  display: table;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  table-layout: fixed;
+  border-spacing: 0;
+  border-color: transparent;
+}
+.tabwid_left table{
+  margin-left:0;
+}
+.tabwid_right table{
+  margin-right:0;
+}
+.tabwid td {
+    padding: 0;
+}
+.tabwid a {
+  text-decoration: none;
+}
+.tabwid thead {
+    background-color: transparent;
+}
+.tabwid tfoot {
+    background-color: transparent;
+}
+.tabwid table tr {
+background-color: transparent;
+}
+</style><div class="tabwid"><style>.cl-bcd30b56{border-collapse:collapse;}.cl-bcc79bf4{font-family:'Arial';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-bcc79bf5{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-bcc84450{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:3pt;padding-top:3pt;padding-left:3pt;padding-right:3pt;line-height: 1;background-color:transparent;}.cl-bcc84451{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:3pt;padding-top:3pt;padding-left:3pt;padding-right:3pt;line-height: 1;background-color:transparent;}.cl-bcc84452{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:3pt;padding-top:3pt;padding-left:3pt;padding-right:3pt;line-height: 1;background-color:transparent;}.cl-bcc93694{width:94pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bcc93695{width:227pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bcc93696{width:84pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bcc93697{width:84pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bcc93698{width:94pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bcc93699{width:227pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bcc9369a{width:94pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bcc9369b{width:227pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bcc9369c{width:84pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bcc9369d{width:84pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 2pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bcc9369e{width:94pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 2pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bcc9d612{width:227pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 2pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table class='cl-bcd30b56'>
+<thead><tr style="overflow-wrap:break-word;"><td  colspan="3"class="cl-bcc9369b"><p class="cl-bcc84450"><span class="cl-bcc79bf4">Household Composition Across Villages</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-bcc9d612"><p class="cl-bcc84451"><span class="cl-bcc79bf5">Village</span></p></td><td class="cl-bcc9369d"><p class="cl-bcc84452"><span class="cl-bcc79bf5">Adults (mean)</span></p></td><td class="cl-bcc9369e"><p class="cl-bcc84452"><span class="cl-bcc79bf5">Children (mean)</span></p></td></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-bcc93695"><p class="cl-bcc84451"><span class="cl-bcc79bf5">Kimbugu</span></p></td><td class="cl-bcc93696"><p class="cl-bcc84452"><span class="cl-bcc79bf5">2.1</span></p></td><td class="cl-bcc93694"><p class="cl-bcc84452"><span class="cl-bcc79bf5">2.2</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-bcc93699"><p class="cl-bcc84451"><span class="cl-bcc79bf5">Lwala</span></p></td><td class="cl-bcc93697"><p class="cl-bcc84452"><span class="cl-bcc79bf5">2.7</span></p></td><td class="cl-bcc93698"><p class="cl-bcc84452"><span class="cl-bcc79bf5">2.3</span></p></td></tr></tbody></table></div></template>
+<div id="3f22ec83-e6e5-4659-9243-ce0ea461b94a"></div>
+<script>
+var dest = document.getElementById("3f22ec83-e6e5-4659-9243-ce0ea461b94a");
+var template = document.getElementById("1cc3bf9d-26ff-484d-84d0-0d5ea4f81eb0");
+var caption = template.content.querySelector("caption");
+if(caption) {
+  caption.style.cssText = "display:block;"
+  var newcapt = document.createElement("p");
+  newcapt.appendChild(caption)
+  dest.parentNode.insertBefore(newcapt, dest.previousSibling);
+}
+var fantome = dest.attachShadow({mode: 'open'});
+var templateContent = template.content;
+fantome.appendChild(templateContent);
+fantome.appendChild(templateContent);
+</script>
+
+</div>
+</div>
+<div id="comparing-numbers-rounding-decimal-places-and-alignment" class="section level3">
+<h3><span class="header-section-number">4.2.2</span> Comparing numbers (rounding, decimal places and alignment)</h3>
+<p>Tables will require the reader to compare numbers. If these numbers are differently rounded or contain differing levels of significant figures/decimal places, then comparing them becomes more difficult. Here are some things you can do to make this process easier:</p>
+<ul>
+<li><p>The same level of precision should be used within each variable. The precision can vary between them, because different measures or ranges will require different levels of precision to make an accurate comparison, but it should be consistent within each variable.</p></li>
+<li><p>It is best to minimise the number of decimal places such that comparisons can be effectively made without any loss of information.</p>
+<ul>
+<li>It is uncommon to need more than 3 decimal places. If you are dealing with incredibly small precise values, then consider using scientific notation. However, bear in mind that scientific notation is harder to understand for most readers.</li>
+</ul></li>
+<li><p>Rounding larger numbers is also advisable depending on your purpose. Demonstration tables usually use suitably rounded numbers that effectively illustrate the message. Reference tables tend to use a higher level of precision as users typically require a more exact number.</p></li>
+<li><p>Using commas to separate large numbers can make these numbers more easily readable, although if you are presenting large numbers you should also consider standardising the numbers into thousands, millions etc.</p></li>
+<li><p>Generally, numbers should also be right aligned, as should the column headings. The decimal point should line up.</p></li>
+<li><p>Decimal numbers between 0 and 1 (or 0 and -1 if negative) should start with a 0 and not a decimal point.</p></li>
+</ul>
+<div id="using-flextable---formatting-columns" class="section level4">
+<h4><span class="header-section-number">4.2.2.1</span> Using Flextable - Formatting Columns</h4>
+<p>There are numerous ways you could format columns using data manipulation techniques prior to creating a flextable object, including by rounding numeric variables using <code>round()</code> or <code>signif()</code>.</p>
+<p>Alternatively, flextable comes with a range of column formatting functions;</p>
+<ul>
+<li><code>colformat_num</code> for formatting numeric columns</li>
+<li><code>colformat_int</code> for formatting integers</li>
+<li><code>colformat_double</code> for formatting decimals</li>
+<li><code>colformat_char</code> for formatting character columns</li>
+<li><code>colformat_date</code> for formatting dates</li>
+<li><code>colformat_datetime</code> for formatting date-times</li>
+<li><code>colformat_lgl</code> for formatting boolean/logical variables</li>
+</ul>
+<p>The numeric based functions above each contain a mix of the same arguments. As mentioned previously they also use i and j to determine the column and row numbers to apply the function to. In addition to these they allow the following arguments;</p>
+<ul>
+<li><code>big.mark</code> - to format the separator in large numbers</li>
+<li><code>decimal.mark</code> - to format the separator in decimal numbers (not available with <code>colformat_int</code>)</li>
+<li><code>digits</code> - to format the number of decimal places (not available with <code>colformat_int</code>)</li>
+</ul>
+</div>
+</div>
+<div id="orientation" class="section level3">
+<h3><span class="header-section-number">4.2.3</span> Orientation</h3>
+<p>A table’s orientation can significantly affect its readability. It is much easier to compare numbers within a column than within a row. Therefore, if we intend to compare numbers across groups according to several variables, the variables should define the columns and the groups should define the rows.</p>
+<p>This is true of both demonstration and reference tables.</p>
+</div>
+<div id="order-of-rows-and-columns" class="section level3">
+<h3><span class="header-section-number">4.2.4</span> Order of rows and columns</h3>
+<p>Another way to improve the layout is to consider the ordering of rows and columns. If there is some logical ordering to the groups, maybe because it is an ordinal variable, then you should keep them in this order. However, if there is no logical order, it is advised to order them according to the most important variable. The most important variable will depend on your data and objectives.</p>
+<p>Additionally, in cases when one of your groups is “none” or “other”, it is often sensible to put these as the bottom rows. A “none” group often serves as a useful baseline to compare all other groups against. An “other” group is usually a combination of rare instances and lacks specified information so is rarely useful to a table’s overall message.</p>
+<p>Ordering of rows and columns is generally not so important when creating reference tables, as these are less likely be used for comparisons or to spot patterns. However, keeping the rows in some form of logical order will likely still help with the table’s readability.</p>
+</div>
+<div id="borders" class="section level3">
+<h3><span class="header-section-number">4.2.5</span> Borders</h3>
+<p>Borders should be using sparingly and only when necessary. They can be used to help separate parts of a table or groups of rows. However, using them too much just makes the table look cluttered and can interrupt numerical comparisons.</p>
+<p>Therefore, borders should be avoided within the main body of the table and there should be no vertical lines. Horizontal lines should only be used to separate out a table’s header and footer from the main table body and the page itself. Horizontal borders are effective between column headers if there is a hierarchical grouping between them.</p>
+</div>
+<div id="font" class="section level3">
+<h3><span class="header-section-number">4.2.6</span> Font</h3>
+<p>Be consistent with your font and ensure it is professional. It is recommended to use sans serif fonts such as Open Sans, Arial, Helvetica, Tahoma, or Verdana. Bold should only be used for titles and headings. Keep changes in font size to a minimum and avoid small fonts.</p>
+</div>
+<div id="grouping-of-rows-and-columns" class="section level3">
+<h3><span class="header-section-number">4.2.7</span> Grouping of rows and columns</h3>
+<p>Grouping is often useful to maximise the amount of information displayed while maintaining the table’s effectiveness and readability. For example, you may use levels of more than one categorical variable to define your rows or you may wish to present more than one measure for a variable (such as wishing to show the mean, the sample size, and the standard deviation).</p>
+<p>While there may be a temptation to put horizontal borders between the different groups of rows and vertical borders between the groupings of columns, this should be avoided. Instead, using white space between the groupings is a much neater alternative that effectively separates out the information and keeps focus within the groups.</p>
+</div>
+<div id="summary-rows-and-columns" class="section level3">
+<h3><span class="header-section-number">4.2.8</span> Summary rows and columns</h3>
+<p>Summary rows and columns are quite useful for providing extra information that may be useful for interpretation. These should be placed at the bottom or right of the table unless they are the primary message of your table, in which case putting them first and then disaggregating is acceptable.</p>
+</div>
+<div id="other" class="section level3">
+<h3><span class="header-section-number">4.2.9</span> Other</h3>
+<p>Some other general tips include:</p>
+<ul>
+<li>You can use footnotes to provide additional contextual information including:</li>
+<li>Source</li>
+<li>Units of measurement</li>
+<li>Statistical information (such as level of significance)</li>
+<li>Any mitigating information that helps with interpreting the figures.</li>
+<li>If the table spans multiple pages, include the table’s heading at the top of each page.</li>
+<li>Do not put the table in the middle of text. Ensure an effective and neat layout between your table and your text.</li>
+<li>If your table would only need two or fewer columns and a handful of rows, consider just writing this information out in text.</li>
+</ul>
 
 </div>
 </div>
@@ -424,7 +643,8 @@ gitbook.start({
 },
 "download": ["bookdown-demo.pdf", "bookdown-demo.epub"],
 "toc": {
-"collapse": "subsection"
+"collapse": "subsection",
+"toc_depth": 3
 }
 });
 });

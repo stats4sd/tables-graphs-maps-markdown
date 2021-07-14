@@ -48,13 +48,17 @@ A flextable object consists of 3 parts.
 *  body: this contains all of the data from the data frame
 *  footer: not present by default but can be used to add footnotes or additional content
 
+Additionally, in flextable notation `i` donates rows and `j` donates columns. Both can be referred to in functions by their row or column number. Note however that the numbering works within parts e.g. by default the row of column headers is i=1 within the part "header", while the first row of data is i=1 within the part "body".
+
 (ref:fourone) [Structure of a flextable object](https://ardata-fr.github.io/flextable-book/design.html#table-parts)
 
-```{r, echo = FALSE, fig.cap = '(ref:fourone)', fig.width=8, fig.height=10, fig.align='center'}
+```{r, echo = FALSE, fig.cap = '(ref:fourone)', fig.width=12, fig.height=14, fig.align='center'}
 include_graphics("img/flextable_object.png")
 ```
 
-```{r}
+Flextable can be installed to R in the usual manner from CRAN.
+
+```{r install_flextable, message=FALSE, warning=FALSE}
 #install.packages("flextable")
 
 library(flextable)
@@ -76,36 +80,166 @@ You should consider including the following information in tables within either 
 *	Source of data
 *	Key quality information
 
+#### Using Flextable - Column headers and titles
+
+Let's look at how we can start using the flextable package to create report ready tables. Starting with how we can set and edit the titles and column headers of our tables.
+
+First we are going to read in our data. 
+
+The first dataset data we are using in this guide is an extract of a survey conducted in Uganda from farmers identified as growing beans.
+
+The dataset contains an extract of 50 responses to 23 of the survey questions, and has been imported to R as a data frame called `BeanSurvey`.
+
+A summary of the columns in the dataset is below.
+
 ```{r}
-Data <- read.csv("data/MathsGrades.csv")
+BeanSurvey <- readRDS(file = "data/bean_survey.RDS")
 ```
 
-```{r, message = FALSE, warning = FALSE, error = FALSE}
+```{r data1, echo=FALSE,message=FALSE,warning=FALSE}
+data.frame(Column=colnames(BeanSurvey),
+           Description=c("Farmer ID","Village name","Household composition","Gender of Household Head","Age of Household Head",
+                         "Occupation of Household Head","Number of Adults within the household","Number of Children (<18) within the household","Do they grow matoke?",
+                         "Do they grow maize?","Do they grow beans?","Do they grow banana?","Do they grow cassava?",
+                         "Do they grow coffee?","Land area of farm (acres)","Labor usage","Intercrops with beans",
+                         "Household decision responsibility","Do they grow beans for sale?","Quantity of beans planted in long rain season",
+                         "Quantity of beans planted in short rain season","Quantity of beans harvested in long rain season"
+                         ,"Quantity of beans harvested in short rain season")) %>% flextable()%>%autofit()
+```
+
+We shall start by producing some basic summaries of the data (mean number of adults in the household and mean number of children in the household). We shall also split this by Village.
+
+We can perform this data manipulation using the tidyverse range of packages. We shall save the summary data as `HHcomposition`.
+
+```{r hhcomp, error = FALSE, warning=FALSE, message=FALSE}
 library(tidyverse)
+
+HHcomposition <- BeanSurvey%>%
+  group_by(VILLAGE)%>%
+  summarise(ADULTS = mean(ADULTS, na.rm = TRUE),
+            CHILDREN = mean(CHILDREN, na.rm = TRUE))
 ```
 
+Now that the data is in a structure (2 X 3) that could be used as a presentable table, we can make the first step of turning this data.frame into a flextable object using `flextable()`. Flextable supports the use of the pipe operator `%>%` similar to other tidyverse packages.
+
 ```{r}
-Data%>%
-  group_by(Sex)%>%
-  summarise(Mock.mean = mean(Mock),
-            Final.mean = mean(Final),
-            Failures.mean = mean(Failures))%>%
+HHcomposition%>%
   flextable()
 ```
 
+The default column headers are of course the column names of the data but we can use additional functions to make these more presentable. First we can change the headers using `set_header_labels()`.
+
+Note that our column names better explain the meanings of the columns and have now included the unit of measurements (mean) so that the numbers can be understood
+
 ```{r}
-Data%>%
-  group_by(Sex)%>%
-  summarise(Mock.mean = mean(Mock),
-            Final.mean = mean(Final),
-            Failures.mean = mean(Failures))%>%
+HHcomposition%>%
   flextable()%>%
-  set_header_labels(Mock.mean = "Mock Result (Mean)",
-                    Final.mean = "Final Result (Mean)",
-                    Failures.mean = "Failures (Mean)")%>%
-  align(align = "center", part = "header")%>%
-  add_header_lines(values = "Table 1a: Average Exam Results by Sex")%>%
+  set_header_labels(VILLAGE = "Village",
+                    ADULTS = "Adults (mean)",
+                    CHILDREN = "Children (mean)")
+```
+
+Next we can add a title using the function `add_header_lines()`. 
+
+Additionally we have used the functions `align()` to centre align our title and `bold()` to make it bold face. Note that in both functions `i = 1, part = "header"` is telling R to apply these functions to row of the header "part" of our table. The row of column headers is now row 2 within the header.
+
+We can also use `autofit()` to automatically fit the table to a more appropriate width. If you are intending to use the tables in word documents, it would be advised to instead use `width()` to fit individual column widths as `autofit()` will not account for the width of the page.
+
+```{r}
+HHcomposition%>%
+  flextable()%>%
+  set_header_labels(VILLAGE = "Village",
+                    ADULTS = "Adults (mean)",
+                    CHILDREN = "Children (mean)")%>%
+  add_header_lines(values = "Household Composition Across Villages")%>%
+  align(i = 1, align = "center", part = "header")%>%
+  bold(i = 1, part = "header")%>%
   autofit()
 ```
 
+### Comparing numbers (rounding, decimal places and alignment)
+
+Tables will require the reader to compare numbers. If these numbers are differently rounded or contain differing levels of significant figures/decimal places, then comparing them becomes more difficult. Here are some things you can do to make this process easier:
+
+* The same level of precision should be used within each variable. The precision can vary between them, because different measures or ranges will require different levels of precision to make an accurate comparison, but it should be consistent within each variable. 
+
+* It is best to minimise the number of decimal places such that comparisons can be effectively made without any loss of information. 
+
+  + It is uncommon to need more than 3 decimal places. If you are dealing with incredibly small precise values, then consider using scientific notation. However, bear in mind that scientific notation is harder to understand for most readers.
+  
+* Rounding larger numbers is also advisable depending on your purpose. Demonstration tables usually use suitably rounded numbers that effectively illustrate the message. Reference tables tend to use a higher level of precision as users typically require a more exact number.
+
+* Using commas to separate large numbers can make these numbers more easily readable, although if you are presenting large numbers you should also consider standardising the numbers into thousands, millions etc. 
+
+* Generally, numbers should also be right aligned, as should the column headings. The decimal point should line up. 
+
+* Decimal numbers between 0 and 1 (or 0 and -1 if negative) should start with a 0 and not a decimal point. 
+
+#### Using Flextable - Formatting Columns
+
+There are numerous ways you could format columns using data manipulation techniques prior to creating a flextable object, including by rounding numeric variables using `round()` or `signif()`. 
+
+Alternatively, flextable comes with a range of column formatting functions;
+
+*  `colformat_num` for formatting numeric columns
+*  `colformat_int` for formatting integers
+*  `colformat_double` for formatting decimals
+*  `colformat_char` for formatting character columns
+*  `colformat_date` for formatting dates
+*  `colformat_datetime` for formatting date-times
+*  `colformat_lgl` for formatting boolean/logical variables
+
+The numeric based functions above each contain a mix of the same arguments. As mentioned previously they also use i and j to determine the column and row numbers to apply the function to. In addition to these they allow the following arguments;
+
+* `big.mark` - to format the separator in large numbers
+* `decimal.mark` - to format the separator in decimal numbers (not available with `colformat_int`)
+* `digits` - to format the number of decimal places (not available with `colformat_int`)
+
+
+### Orientation
+
+A table’s orientation can significantly affect its readability. It is much easier to compare numbers within a column than within a row. Therefore, if we intend to compare numbers across groups according to several variables, the variables should define the columns and the groups should define the rows.
+
+This is true of both demonstration and reference tables.
+
+### Order of rows and columns
+
+Another way to improve the layout is to consider the ordering of rows and columns. If there is some logical ordering to the groups, maybe because it is an ordinal variable, then you should keep them in this order. However, if there is no logical order, it is advised to order them according to the most important variable. The most important variable will depend on your data and objectives. 
+
+Additionally, in cases when one of your groups is “none” or “other”, it is often sensible to put these as the bottom rows. A “none” group often serves as a useful baseline to compare all other groups against. An “other” group is usually a combination of rare instances and lacks specified information so is rarely useful to a table’s overall message.
+
+Ordering of rows and columns is generally not so important when creating reference tables, as these are less likely be used for comparisons or to spot patterns. However, keeping the rows in some form of logical order will likely still help with the table’s readability.
+
+### Borders
+
+Borders should be using sparingly and only when necessary. They can be used to help separate parts of a table or groups of rows. However, using them too much just makes the table look cluttered and can interrupt numerical comparisons.
+
+Therefore, borders should be avoided within the main body of the table and there should be no vertical lines. Horizontal lines should only be used to separate out a table’s header and footer from the main table body and the page itself. Horizontal borders are effective between column headers if there is a hierarchical grouping between them.
+
+### Font
+
+Be consistent with your font and ensure it is professional. It is recommended to use sans serif fonts such as Open Sans, Arial, Helvetica, Tahoma, or Verdana. Bold should only be used for titles and headings. Keep changes in font size to a minimum and avoid small fonts. 
+
+### Grouping of rows and columns
+
+Grouping is often useful to maximise the amount of information displayed while maintaining the table’s effectiveness and readability. For example, you may use levels of more than one categorical variable to define your rows or you may wish to present more than one measure for a variable (such as wishing to show the mean, the sample size, and the standard deviation).
+
+While there may be a temptation to put horizontal borders between the different groups of rows and vertical borders between the groupings of columns, this should be avoided. Instead, using white space between the groupings is a much neater alternative that effectively separates out the information and keeps focus within the groups. 
+
+### Summary rows and columns
+
+Summary rows and columns are quite useful for providing extra information that may be useful for interpretation. These should be placed at the bottom or right of the table unless they are the primary message of your table, in which case putting them first and then disaggregating is acceptable.
+
+### Other
+
+Some other general tips include:
+
+*	You can use footnotes to provide additional contextual information including:
+ +	Source
+ +	Units of measurement
+ +	Statistical information (such as level of significance)
+ +	Any mitigating information that helps with interpreting the figures.
+*	If the table spans multiple pages, include the table’s heading at the top of each page.
+*	Do not put the table in the middle of text. Ensure an effective and neat layout between your table and your text.
+* If your table would only need two or fewer columns and a handful of rows, consider just writing this information out in text.
 

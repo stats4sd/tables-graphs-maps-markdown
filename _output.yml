@@ -2,11 +2,13 @@ bookdown::gitbook:
   css: style.css
   config:
     toc:
+      toc_depth: 3
       before: |
         <li><a href="./">Presentation of Tables, Graphs and Maps</a></li>
       after: |
         <li><a href="https://stats4sd.org/" target="blank">A Stats4SD Resource</a></li>
     edit: https://github.com/rstudio/bookdown-demo/edit/master/%s
+  
     download: ["pdf", "epub"]
 bookdown::pdf_book:
   includes:
