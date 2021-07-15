@@ -223,11 +223,11 @@ ggplot(MathsGrades, aes(x = Mock, y = Final, fill = Sex))+
   geom_jitter()
 ```
 
-If we don't wish to allow colour to vary according to a variable in our data but rather set all objects to the same colour (other than the default grey/black), then we set the colour inside of the specific geom instead and not within a call to `aes()`. We can assign the colour using a hex code e.g. `fill = "#CD0000"` for a deep shade of red or by using the name of a pre-defined ggplot2 colour such as `colour = "dodgerblue4"`. You can find a list of all ggplot2 colours and additional information on colour scales [here](http://sape.inf.usi.ch/quick-reference/ggplot2/colour). Another useful site for finding good colours, especially their appropriate hex codes can be found [here](https://alloyui.com/examples/color-picker/hsv.html)
+If we don't wish to allow colour to vary according to a variable in our data but rather set all objects to the same colour (other than the default grey/black), then we set the colour inside of the specific geom instead and not within a call to `aes()`. We can assign the colour using a hex code e.g. `fill = "#B15151"` for a shade of red or by using the name of a pre-defined ggplot2 colour such as `colour = "dodgerblue4"`. You can find a list of all ggplot2 colours and additional information on colour scales [here](http://sape.inf.usi.ch/quick-reference/ggplot2/colour). Another useful site for finding good colours, especially their appropriate hex codes can be found [here](https://alloyui.com/examples/color-picker/hsv.html)
 
 ```{r, fig.cap="Setting fill with hex code"}
 ggplot(BeanSurvey, aes(x = VILLAGE, y = ADULTS))+
-  geom_col(fill = "#CD0000")
+  geom_col(fill = "#B15151")
 ```
 
 ```{r, fig.cap = "Setting colour with named colour"}
@@ -235,8 +235,48 @@ ggplot(MathsGrades, aes(x = Mock, y = Final))+
   geom_jitter(colour = "dodgerblue4")
 ```
 
+In order to change the specific colours being used when fill/colour has been set using a variable, we need to use one of a range of functions, the choice of which is dependent on the type of variable being used and how you wish to define your colours. Colour and fill ranges are treated as a scale and therefore we approach them in a similar way as changing the y or x axis scale.
 
-### Changing the colour/fill scale
+The main functions, though others do exist, are;
 
-### Setting colours manually
+* `scale_fill/colour_manual` - To explicitly map your own scale
+* `scale_fill/colour_continuous` - To control the mapping of colours applied to continuous variables
+* `scale_fill/colour_discrete` - To control the mapping of colours applied to discrete variables
+* `scale_fill/colour_brewer` - This allows you to select a pre-defined colour palette rather than manually choosing colours
+* `scale_fill/colour_grandient` - To map a variable on a low-high scale, also there is `scale_fill/colour_gradient2` which can specify a midpoint colour and value
+
+Other functions for datetime and ordinal variables exist as well as to specify a greyscale.
+
+First is an example of using `scale_fill_manual()`. We supply a list of colours, either as hex codes or names, to the argument values. These colours will be applied according to the default order of the values of our variable (HHTYPE). To change this order, we can use the limits argument by providing a list of the HHTYPE values in a specific order. The same arguments would apply if using `scale_colour_manual()`
+
+```{r, fig.cap = "Using fill (barchart)"}
+ggplot(BeanSurvey, aes(x = VILLAGE, y = ADULTS, fill = HHTYPE))+
+  geom_col()+
+  scale_fill_manual(values =c("#B15151","#8F95B3","#91B38F","thistle3","coral2","#7CBFC8"))
+```
+
+Alternatively we can set our colours using a pre-defined palette using `scale_fill_brewer()` You can find examples of all palettes available [here](https://colorbrewer2.org/#type=sequential&scheme=BuGn&n=3). Here we supply the name of the palette to the palette argument in quotations. Here is an example of the palette Set3
+
+```{r, fig.cap = "Using fill (barchart)"}
+ggplot(BeanSurvey, aes(x = VILLAGE, y = ADULTS, fill = HHTYPE))+
+  geom_col()+
+  scale_fill_brewer(palette = "Set3")
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
